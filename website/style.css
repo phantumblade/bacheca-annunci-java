@@ -120,7 +120,7 @@ body {
 
 /* Project Overview - Più compatta */
 .project-overview {
-    margin-bottom: var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
     padding: var(--spacing-md);
     background: var(--claude-surface);
     border: 1px solid var(--claude-border);
@@ -136,7 +136,7 @@ body {
 
 .overview-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     gap: var(--spacing-sm);
     margin-top: var(--spacing-md);
 }
@@ -145,7 +145,7 @@ body {
     background: var(--claude-bg);
     border: 1px solid var(--claude-border);
     border-radius: var(--border-radius);
-    padding: var(--spacing-md);
+    padding: var(--spacing-sm);
     text-align: center;
     transition: all var(--transition-normal);
     position: relative;
@@ -158,13 +158,13 @@ body {
 }
 
 .overview-card i {
-    font-size: 24px;
-    margin-bottom: var(--spacing-sm);
+    font-size: 18px;
+    margin-bottom: var(--spacing-xs);
     color: var(--claude-primary);
 }
 
 .overview-card h3 {
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-xs);
     font-weight: 600;
     margin-bottom: var(--spacing-xs);
     color: var(--claude-text);
@@ -172,8 +172,8 @@ body {
 
 .overview-card p {
     color: var(--claude-text-secondary);
-    font-size: var(--font-size-xs);
-    line-height: 1.4;
+    font-size: 11px;
+    line-height: 1.3;
 }
 
 /* File Explorer - Stile Claude moderno */
@@ -319,6 +319,8 @@ body {
     overflow-y: auto;
     position: relative;
     box-shadow: var(--shadow-xl);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 .close {
@@ -368,6 +370,8 @@ body {
 
 .modal-body {
     padding: var(--spacing-xl);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 .modal-body h3 {
@@ -414,6 +418,9 @@ body {
     font-size: var(--font-size-sm);
     border-radius: var(--border-radius);
     transition: all var(--transition-fast);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
 }
 
 .modal-body li:hover {
@@ -428,7 +435,7 @@ body {
     }
     
     .header {
-        padding: var(--spacing-lg) 0;
+        padding: var(--spacing-md) 0;
     }
     
     .header h1 {
@@ -436,12 +443,33 @@ body {
     }
     
     .header p {
-        font-size: var(--font-size-md);
+        font-size: var(--font-size-sm);
+    }
+    
+    .project-overview {
+        margin-bottom: var(--spacing-md);
+        padding: var(--spacing-sm);
     }
     
     .overview-grid {
-        grid-template-columns: 1fr;
-        gap: var(--spacing-md);
+        grid-template-columns: 1fr 1fr;
+        gap: var(--spacing-xs);
+    }
+    
+    .overview-card {
+        padding: var(--spacing-xs);
+    }
+    
+    .overview-card i {
+        font-size: 16px;
+    }
+    
+    .overview-card h3 {
+        font-size: 11px;
+    }
+    
+    .overview-card p {
+        font-size: 10px;
     }
     
     .file-explorer {
@@ -449,12 +477,17 @@ body {
     }
     
     .modal-content {
-        width: 95%;
-        margin: 10% auto;
+        width: 95vw;
+        height: 90vh;
+        margin: 5vh auto;
+        max-height: 90vh;
+        display: flex;
+        flex-direction: column;
     }
     
     .modal-header {
         padding: var(--spacing-md);
+        flex-shrink: 0;
     }
     
     .modal-header h2 {
@@ -463,6 +496,18 @@ body {
     
     .modal-body {
         padding: var(--spacing-md);
+        flex: 1;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .modal-body p {
+        font-size: var(--font-size-sm);
+    }
+    
+    .modal-body li {
+        font-size: var(--font-size-xs);
+        padding: var(--spacing-sm);
     }
 }
 
@@ -473,7 +518,32 @@ body {
     }
     
     .header p {
-        font-size: var(--font-size-sm);
+        font-size: var(--font-size-xs);
+    }
+    
+    .project-overview {
+        margin-bottom: var(--spacing-sm);
+    }
+    
+    .overview-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: var(--spacing-xs);
+    }
+    
+    .overview-card {
+        padding: 6px;
+    }
+    
+    .overview-card i {
+        font-size: 14px;
+    }
+    
+    .overview-card h3 {
+        font-size: 10px;
+    }
+    
+    .overview-card p {
+        font-size: 9px;
     }
     
     .file-item {
@@ -486,8 +556,31 @@ body {
     }
     
     .modal-content {
-        width: 98%;
-        margin: 5% auto;
+        width: 98vw;
+        height: 95vh;
+        margin: 2.5vh auto;
+        max-height: 95vh;
+    }
+    
+    .modal-header {
+        padding: var(--spacing-sm);
+    }
+    
+    .modal-header h2 {
+        font-size: var(--font-size-md);
+    }
+    
+    .modal-body {
+        padding: var(--spacing-sm);
+    }
+    
+    .modal-body p {
+        font-size: var(--font-size-xs);
+    }
+    
+    .modal-body li {
+        font-size: 11px;
+        padding: var(--spacing-xs);
     }
 }
 
