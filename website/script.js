@@ -300,6 +300,28 @@ function openFileModal(fileElement) {
         fileInfo.dependencies.forEach(dep => {
             const li = document.createElement('li');
             li.textContent = dep;
+            
+            // Make clickable if it's a file with description
+            if (fileDescriptions[dep]) {
+                li.classList.add('clickable-dependency');
+                li.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    // Create a temporary file element to pass to openFileModal
+                    const tempFileElement = {
+                        dataset: { path: dep }
+                    };
+                    openFileModal(tempFileElement);
+                });
+                
+                // Add icon to show it's clickable
+                const icon = document.createElement('i');
+                icon.className = 'fas fa-external-link-alt';
+                icon.style.marginRight = '8px';
+                icon.style.fontSize = '11px';
+                icon.style.color = 'var(--claude-primary)';
+                li.insertBefore(icon, li.firstChild);
+            }
+            
             modalDependencies.appendChild(li);
         });
     } else {
