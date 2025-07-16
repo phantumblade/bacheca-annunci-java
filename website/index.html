@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bacheca Annunci - Documentazione Progetto</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="https://img.icons8.com/ios-filled/50/000000/bulletin-board.png" type="image/x-icon">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-content">
+                <img src="https://img.icons8.com/ios-filled/50/000000/bulletin-board.png" alt="Bacheca" class="header-icon">
+                <h1>BACHECA ANNUNCI</h1>
+                <p>Sistema di gestione annunci Java con architettura MVC</p>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <section class="project-overview">
+                <h2>PANORAMICA PROGETTO</h2>
+                <div class="overview-grid">
+                    <div class="overview-card">
+                        <img src="https://img.icons8.com/ios-filled/40/000000/java-coffee-cup-logo.png" alt="Java">
+                        <h3>Java 17+</h3>
+                        <p>Linguaggio OOP con pattern MVC</p>
+                    </div>
+                    <div class="overview-card">
+                        <img src="https://img.icons8.com/ios-filled/40/000000/user-interface.png" alt="GUI">
+                        <h3>Swing GUI</h3>
+                        <p>Interfaccia grafica responsiva</p>
+                    </div>
+                    <div class="overview-card">
+                        <img src="https://img.icons8.com/ios-filled/40/000000/terminal.png" alt="CLI">
+                        <h3>CLI Interface</h3>
+                        <p>Menu testuale interattivo</p>
+                    </div>
+                    <div class="overview-card">
+                        <img src="https://img.icons8.com/ios-filled/40/000000/database.png" alt="CSV">
+                        <h3>CSV Storage</h3>
+                        <p>Persistenza file strutturata</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="file-explorer">
+                <h2>STRUTTURA PROGETTO</h2>
+                <div class="file-tree">
+                    <div class="file-item folder" data-type="folder" data-path="src">
+                        <img src="https://img.icons8.com/ios-filled/20/000000/folder.png" alt="Folder">
+                        <span>src/</span>
+                        <span class="expand-icon">+</span>
+                    </div>
+                    <div class="file-children hidden" data-parent="src">
+                        <div class="file-item folder" data-type="folder" data-path="src/bacheca">
+                            <img src="https://img.icons8.com/ios-filled/20/000000/folder.png" alt="Folder">
+                            <span>bacheca/</span>
+                            <span class="expand-icon">+</span>
+                        </div>
+                        <div class="file-children hidden" data-parent="src/bacheca">
+                            <div class="file-item file" data-type="file" data-path="src/bacheca/Annuncio.java">
+                                <img src="https://img.icons8.com/ios-filled/20/000000/java-coffee-cup-logo.png" alt="Java">
+                                <span>Annuncio.java</span>
+                            </div>
+                            <div class="file-item file" data-type="file" data-path="src/bacheca/AnnuncioAcquisto.java">
+                                <img src="https://img.icons8.com/ios-filled/20/000000/java-coffee-cup-logo.png" alt="Java">
+                                <span>AnnuncioAcquisto.java</span>
+                            </div>
+                            <div class="file-item file" data-type="file" data-path="src/bacheca/AnnuncioVendita.java">
+                                <img src="https://img.icons8.com/ios-filled/20/000000/java-coffee-cup-logo.png" alt="Java">
+                                <span>AnnuncioVendita.java</span>
+                            </div>
+                            <div class="file-item file" data-type="file" data-path="src/bacheca/Bacheca.java">
+                                <img src="https://img.icons8.com/ios-filled/20/000000/java-coffee-cup-logo.png" alt="Java">
+                                <span>Bacheca.java</span>
+                            </div>
+                            <div class="file-item file" data-type="file" data-path="src/bacheca/Utente.java">
+                                <img src="https://img.icons8.com/ios-filled/20/000000/java-coffee-cup-logo.png" alt="Java">
+                                <span>Utente.java</span>
+                            </div>
+                        </div>
+                        
+                        <div class="file-item folder" data-type="folder" data-path="src/controller">
+                            <img src="https://img.icons8.com/ios-filled/20/000000/folder.png" alt="Folder">
+                            <span>controller/</span>
+                            <span class="expand-icon">+</span>
+                        </div>
+                        <div class="file-children hidden" data-parent="src/controller">
+                            <div class="file-item file" data-type="file" data-path="src/controller/GestoreBacheca.java">
+                                <img src="https://img.icons8.com/ios-filled/20/000000/java-coffee-cup-logo.png" alt="Java">
+                                <span>GestoreBacheca.java</span>
+                            </div>
+                            <div class="file-item file" data-type="file" data-path="src/controller/GestoreBachecaImpl.java">
+                                <img src="https://img.icons8.com/ios-filled/20/000000/java-coffee-cup-logo.png" alt="Java">
+                                <span>GestoreBachecaImpl.java</span>
+                            </div>
+                            <div class="file-item file" data-type="file" data-path="src/controller/GestoreUtenti.java">
+                                <img src="https://img.icons8.com/ios-filled/20/000000/java-coffee-cup-logo.png" alt="Java">
+                                <span>GestoreUtenti.java</span>
+                            </div>
+                            <div class="file-item file" data-type="file" data-path="src/controller/GestoreUtentiImpl.java">
+                                <img src="https://img.icons8.com/ios-filled/20/000000/java-coffee-cup-logo.png" alt="Java">
+                                <span>GestoreUtentiImpl.java</span>
+                            </div>
+                        </div>
+                        
+                        <div class="file-item folder" data-type="folder" data-path="src/view">
+                            <img src="https://img.icons8.com/ios-filled/20/000000/folder.png" alt="Folder">
+                            <span>view/</span>
+                            <span class="expand-icon">+</span>
+                        </div>
+                        <div class="file-children hidden" data-parent="src/view">
+                            <div class="file-item folder" data-type="folder" data-path="src/view/cli">
+                                <img src="https://img.icons8.com/ios-filled/20/000000/folder.png" alt="Folder">
+                                <span>cli/</span>
+                                <span class="expand-icon">+</span>
+                            </div>
+                            <div class="file-children hidden" data-parent="src/view/cli">
+                                <div class="file-item file" data-type="file" data-path="src/view/cli/MainCLI.java">
+                                    <img src="https://img.icons8.com/ios-filled/20/000000/java-coffee-cup-logo.png" alt="Java">
+                                    <span>MainCLI.java</span>
+                                </div>
+                                <div class="file-item file" data-type="file" data-path="src/view/cli/StartApp.java">
+                                    <img src="https://img.icons8.com/ios-filled/20/000000/java-coffee-cup-logo.png" alt="Java">
+                                    <span>StartApp.java</span>
+                                </div>
+                            </div>
+                            
+                            <div class="file-item folder" data-type="folder" data-path="src/view/frontend">
+                                <img src="https://img.icons8.com/ios-filled/20/000000/folder.png" alt="Folder">
+                                <span>frontend/</span>
+                                <span class="expand-icon">+</span>
+                            </div>
+                            <div class="file-children hidden" data-parent="src/view/frontend">
+                                <div class="file-item file" data-type="file" data-path="src/view/frontend/MainGUI.java">
+                                    <img src="https://img.icons8.com/ios-filled/20/000000/java-coffee-cup-logo.png" alt="Java">
+                                    <span>MainGUI.java</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="file-item folder" data-type="folder" data-path="src/eccezioni">
+                            <img src="https://img.icons8.com/ios-filled/20/000000/folder.png" alt="Folder">
+                            <span>eccezioni/</span>
+                            <span class="expand-icon">+</span>
+                        </div>
+                        <div class="file-children hidden" data-parent="src/eccezioni">
+                            <div class="file-item file" data-type="file" data-path="src/eccezioni/BachecaException.java">
+                                <img src="https://img.icons8.com/ios-filled/20/000000/java-coffee-cup-logo.png" alt="Java">
+                                <span>BachecaException.java</span>
+                            </div>
+                            <div class="file-item file" data-type="file" data-path="src/eccezioni/DatiNonValidiException.java">
+                                <img src="https://img.icons8.com/ios-filled/20/000000/java-coffee-cup-logo.png" alt="Java">
+                                <span>DatiNonValidiException.java</span>
+                            </div>
+                            <div class="file-item file" data-type="file" data-path="src/eccezioni/FileBachecaException.java">
+                                <img src="https://img.icons8.com/ios-filled/20/000000/java-coffee-cup-logo.png" alt="Java">
+                                <span>FileBachecaException.java</span>
+                            </div>
+                            <div class="file-item file" data-type="file" data-path="src/eccezioni/GestoreBachecaException.java">
+                                <img src="https://img.icons8.com/ios-filled/20/000000/java-coffee-cup-logo.png" alt="Java">
+                                <span>GestoreBachecaException.java</span>
+                            </div>
+                            <div class="file-item file" data-type="file" data-path="src/eccezioni/OperazioneNonValidaException.java">
+                                <img src="https://img.icons8.com/ios-filled/20/000000/java-coffee-cup-logo.png" alt="Java">
+                                <span>OperazioneNonValidaException.java</span>
+                            </div>
+                        </div>
+                        
+                        <div class="file-item folder" data-type="folder" data-path="src/test">
+                            <img src="https://img.icons8.com/ios-filled/20/000000/folder.png" alt="Folder">
+                            <span>test/</span>
+                            <span class="expand-icon">+</span>
+                        </div>
+                        <div class="file-children hidden" data-parent="src/test">
+                            <div class="file-item file" data-type="file" data-path="src/test/TestAnnuncioVendita.java">
+                                <img src="https://img.icons8.com/ios-filled/20/000000/java-coffee-cup-logo.png" alt="Java">
+                                <span>TestAnnuncioVendita.java</span>
+                            </div>
+                            <div class="file-item file" data-type="file" data-path="src/test/TestUtente.java">
+                                <img src="https://img.icons8.com/ios-filled/20/000000/java-coffee-cup-logo.png" alt="Java">
+                                <span>TestUtente.java</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="file-item folder" data-type="folder" data-path="data">
+                        <img src="https://img.icons8.com/ios-filled/20/000000/folder.png" alt="Folder">
+                        <span>data/</span>
+                        <span class="expand-icon">+</span>
+                    </div>
+                    <div class="file-children hidden" data-parent="data">
+                        <div class="file-item file" data-type="file" data-path="data/annunci.csv">
+                            <img src="https://img.icons8.com/ios-filled/20/000000/csv.png" alt="CSV">
+                            <span>annunci.csv</span>
+                        </div>
+                    </div>
+                    
+                    <div class="file-item folder" data-type="folder" data-path="docs">
+                        <img src="https://img.icons8.com/ios-filled/20/000000/folder.png" alt="Folder">
+                        <span>docs/</span>
+                        <span class="expand-icon">+</span>
+                    </div>
+                    <div class="file-children hidden" data-parent="docs">
+                        <div class="file-item file" data-type="file" data-path="docs/Progetto 24-25.pdf">
+                            <img src="https://img.icons8.com/ios-filled/20/000000/pdf.png" alt="PDF">
+                            <span>Progetto 24-25.pdf</span>
+                        </div>
+                    </div>
+                    
+                    <div class="file-item folder" data-type="folder" data-path="lib">
+                        <img src="https://img.icons8.com/ios-filled/20/000000/folder.png" alt="Folder">
+                        <span>lib/</span>
+                        <span class="expand-icon">+</span>
+                    </div>
+                    <div class="file-children hidden" data-parent="lib">
+                        <div class="file-item file" data-type="file" data-path="lib/junit-jupiter-api-5.12.0-RC1.jar">
+                            <img src="https://img.icons8.com/ios-filled/20/000000/java-coffee-cup-logo.png" alt="JAR">
+                            <span>junit-jupiter-api-5.12.0-RC1.jar</span>
+                        </div>
+                    </div>
+                    
+                    <div class="file-item folder" data-type="folder" data-path="jbook">
+                        <img src="https://img.icons8.com/ios-filled/20/000000/folder.png" alt="Folder">
+                        <span>jbook/</span>
+                        <span class="expand-icon">+</span>
+                    </div>
+                    <div class="file-children hidden" data-parent="jbook">
+                        <div class="file-item folder" data-type="folder" data-path="jbook/util">
+                            <img src="https://img.icons8.com/ios-filled/20/000000/folder.png" alt="Folder">
+                            <span>util/</span>
+                            <span class="expand-icon">+</span>
+                        </div>
+                        <div class="file-children hidden" data-parent="jbook/util">
+                            <div class="file-item file" data-type="file" data-path="jbook/util/Input.java">
+                                <img src="https://img.icons8.com/ios-filled/20/000000/java-coffee-cup-logo.png" alt="Java">
+                                <span>Input.java</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="file-item file" data-type="file" data-path="README.md">
+                        <img src="https://img.icons8.com/ios-filled/20/000000/markdown.png" alt="Markdown">
+                        <span>README.md</span>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modal per dettagli file -->
+    <div class="modal" id="fileModal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="modal-header">
+                <img id="modalIcon" src="" alt="File Icon">
+                <h2 id="modalTitle"></h2>
+            </div>
+            <div class="modal-body">
+                <div class="file-info">
+                    <h3>Descrizione</h3>
+                    <p id="modalDescription"></p>
+                </div>
+                <div class="file-dependencies">
+                    <h3>Dipendenze</h3>
+                    <ul id="modalDependencies"></ul>
+                </div>
+                <div class="file-usage">
+                    <h3>Utilizzo</h3>
+                    <p id="modalUsage"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
