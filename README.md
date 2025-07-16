@@ -33,29 +33,62 @@ Il **Sistema di Gestione Bacheca Annunci** è un'applicazione Java completa che 
 
 ---
 
-## <img src="https://img.icons8.com/fluency/24/clipboard-task.png" alt="task"/> Stato Implementazione vs Specifiche
+## <img src="https://img.icons8.com/fluency/24/clipboard-task.png" alt="task"/> Conformità alle Specifiche Progetto 24-25
 
-Basato sul documento `docs/Progetto 24-25.pdf`, ecco lo stato di implementazione:
+Basato sul documento ufficiale `docs/Progetto 24-25.pdf`, verifica completa dell'implementazione:
 
-### <img src="https://img.icons8.com/fluency/20/checkmark.png" alt="done"/> Requisiti Implementati
+### <img src="https://img.icons8.com/fluency/20/checkmark.png" alt="done"/> Requisiti Obbligatori
 
-| Componente | Specificato | Implementato | Note |
-|-----------|------------|-------------|------|
-| **Modello Dati** | <img src="https://img.icons8.com/fluency/16/checkmark.png" alt="yes"/> | <img src="https://img.icons8.com/fluency/16/checkmark.png" alt="done"/> | Pattern ereditarietà con classi astratte |
-| **Pattern MVC** | <img src="https://img.icons8.com/fluency/16/checkmark.png" alt="yes"/> | <img src="https://img.icons8.com/fluency/16/checkmark.png" alt="done"/> | Separazione completa M-V-C |
-| **Interfaccia CLI** | <img src="https://img.icons8.com/fluency/16/checkmark.png" alt="yes"/> | <img src="https://img.icons8.com/fluency/16/checkmark.png" alt="done"/> | Menu interattivo completo |
-| **Gestione File** | <img src="https://img.icons8.com/fluency/16/checkmark.png" alt="yes"/> | <img src="https://img.icons8.com/fluency/16/checkmark.png" alt="done"/> | I/O CSV con parsing robusto |
-| **Eccezioni** | <img src="https://img.icons8.com/fluency/16/checkmark.png" alt="yes"/> | <img src="https://img.icons8.com/fluency/16/checkmark.png" alt="done"/> | Eccezioni personalizzate multiple |
-| **Javadoc** | <img src="https://img.icons8.com/fluency/16/checkmark.png" alt="yes"/> | <img src="https://img.icons8.com/fluency/16/checkmark.png" alt="done"/> | Documentazione completa |
+| Requisito Specifico | Richiesto | Implementato | Implementazione | Note |
+|-------------------|-----------|-------------|----------------|------|
+| **Classi Test** | <img src="https://img.icons8.com/fluency/16/checkmark.png" alt="yes"/> | <img src="https://img.icons8.com/fluency/16/checkmark.png" alt="done"/> | `src/test/TestAnnuncioVendita.java`<br>`src/test/TestUtente.java` | Test per classi del dominio |
+| **Documentazione Javadoc** | <img src="https://img.icons8.com/fluency/16/checkmark.png" alt="yes"/> | <img src="https://img.icons8.com/fluency/16/checkmark.png" alt="done"/> | Annotazioni complete nel codice | Documentazione API completa |
+| **Relazione Progetto** | <img src="https://img.icons8.com/fluency/16/checkmark.png" alt="yes"/> | <img src="https://img.icons8.com/fluency/16/checkmark.png" alt="done"/> | `README.md` dettagliato | Scelte architetturali documentate |
+| **Interfaccia CLI** | <img src="https://img.icons8.com/fluency/16/checkmark.png" alt="yes"/> | <img src="https://img.icons8.com/fluency/16/checkmark.png" alt="done"/> | `view/cli/MainCLI.java` | Menu completo con gestione eccezioni |
+| **Interfaccia GUI** | <img src="https://img.icons8.com/fluency/16/checkmark.png" alt="yes"/> | <img src="https://img.icons8.com/fluency/16/checkmark.png" alt="done"/> | `view/frontend/MainGUI.java` | Swing con layout responsivo |
+| **Separazione UI/Logic** | <img src="https://img.icons8.com/fluency/16/checkmark.png" alt="yes"/> | <img src="https://img.icons8.com/fluency/16/checkmark.png" alt="done"/> | Pattern MVC implementato | View separate da Controller/Model |
 
-### <img src="https://img.icons8.com/fluency/20/star.png" alt="extra"/> Funzionalità Extra Implementate
+### <img src="https://img.icons8.com/fluency/20/target.png" alt="core"/> Funzionalità Core del Sistema
 
-| Feature | Descrizione | Valore Aggiunto |
-|---------|-------------|----------------|
-| **GUI Swing** | Interfaccia grafica completa | <img src="https://img.icons8.com/fluency/16/plus.png" alt="plus"/> Layout responsivo |
-| **Ricerca Correlazioni** | Matching automatico annunci | <img src="https://img.icons8.com/fluency/16/plus.png" alt="plus"/> UX intelligente |
-| **Dual Interface** | CLI + GUI simultanee | <img src="https://img.icons8.com/fluency/16/plus.png" alt="plus"/> Flessibilità utilizzo |
-| **Auto-Cleanup** | Rimozione annunci scaduti | <img src="https://img.icons8.com/fluency/16/plus.png" alt="plus"/> Manutenzione automatica |
+| Funzionalità | Richiesto | Implementato | Classe/Metodo | Verifica |
+|-------------|-----------|-------------|---------------|----------|
+| **Gestione Utenti** | <img src="https://img.icons8.com/fluency/16/checkmark.png" alt="yes"/> | <img src="https://img.icons8.com/fluency/16/checkmark.png" alt="done"/> | `bacheca/Utente.java`<br>`controller/GestoreUtenti.java` | Email + Nome identificativi |
+| **Annunci Acquisto/Vendita** | <img src="https://img.icons8.com/fluency/16/checkmark.png" alt="yes"/> | <img src="https://img.icons8.com/fluency/16/checkmark.png" alt="done"/> | `bacheca/AnnuncioAcquisto.java`<br>`bacheca/AnnuncioVendita.java` | Ereditarietà da classe astratta |
+| **Parole Chiave** | <img src="https://img.icons8.com/fluency/16/checkmark.png" alt="yes"/> | <img src="https://img.icons8.com/fluency/16/checkmark.png" alt="done"/> | Campo `List<String> paroleChiave` | Separatore virgola supportato |
+| **Data Scadenza Vendita** | <img src="https://img.icons8.com/fluency/16/checkmark.png" alt="yes"/> | <img src="https://img.icons8.com/fluency/16/checkmark.png" alt="done"/> | `AnnuncioVendita.dataScadenza` | Tipo `LocalDate` |
+| **ID Annunci** | <img src="https://img.icons8.com/fluency/16/checkmark.png" alt="yes"/> | <img src="https://img.icons8.com/fluency/16/checkmark.png" alt="done"/> | `Annuncio.id` (contatore statico) | Assegnazione automatica |
+
+### <img src="https://img.icons8.com/fluency/20/settings.png" alt="operations"/> Operazioni Utente Richieste
+
+| Operazione | Richiesto | Implementato | Metodo | Interfacce |
+|-----------|-----------|-------------|--------|------------|
+| **Inserire Parola Chiave** | <img src="https://img.icons8.com/fluency/16/checkmark.png" alt="yes"/> | <img src="https://img.icons8.com/fluency/16/checkmark.png" alt="done"/> | `aggiungiParoleChiave(id, nuoveParole)` | CLI + GUI |
+| **Inserire Annuncio** | <img src="https://img.icons8.com/fluency/16/checkmark.png" alt="yes"/> | <img src="https://img.icons8.com/fluency/16/checkmark.png" alt="done"/> | `aggiungiAnnuncio(annuncio)` | CLI + GUI |
+| **Lista Correlazioni Acquisto** | <img src="https://img.icons8.com/fluency/16/checkmark.png" alt="yes"/> | <img src="https://img.icons8.com/fluency/16/checkmark.png" alt="done"/> | `cercaAnnunciVenditaCorrelati()` | Automatico in GUI |
+| **Rimuovere Annuncio** | <img src="https://img.icons8.com/fluency/16/checkmark.png" alt="yes"/> | <img src="https://img.icons8.com/fluency/16/checkmark.png" alt="done"/> | `rimuoviAnnuncio(id, emailUtente)` | Solo proprietario |
+| **Cercare per Parole Chiave** | <img src="https://img.icons8.com/fluency/16/checkmark.png" alt="yes"/> | <img src="https://img.icons8.com/fluency/16/checkmark.png" alt="done"/> | `cercaPerParoleChiave(paroleChiave)` | Intersezione parole |
+| **Ripulire Bacheca** | <img src="https://img.icons8.com/fluency/16/checkmark.png" alt="yes"/> | <img src="https://img.icons8.com/fluency/16/checkmark.png" alt="done"/> | `pulisciBacheca()` | Rimuove annunci scaduti |
+
+### <img src="https://img.icons8.com/fluency/20/code-file.png" alt="technical"/> Requisiti Tecnici
+
+| Requisito Tecnico | Richiesto | Implementato | Implementazione | Dettagli |
+|------------------|-----------|-------------|----------------|----------|
+| **Memorizzazione File** | <img src="https://img.icons8.com/fluency/16/checkmark.png" alt="yes"/> | <img src="https://img.icons8.com/fluency/16/checkmark.png" alt="done"/> | `salvaSuFile()` / `leggiDaFile()` | Formato CSV |
+| **Iteratore Bacheca** | <img src="https://img.icons8.com/fluency/16/checkmark.png" alt="yes"/> | <img src="https://img.icons8.com/fluency/16/checkmark.png" alt="done"/> | `implements Iterable<Annuncio>` | For-each supportato |
+| **Gestione Eccezioni** | <img src="https://img.icons8.com/fluency/16/checkmark.png" alt="yes"/> | <img src="https://img.icons8.com/fluency/16/checkmark.png" alt="done"/> | 5 eccezioni personalizzate | No stampe per errori |
+| **Classi Astratte/Interfacce** | <img src="https://img.icons8.com/fluency/16/checkmark.png" alt="yes"/> | <img src="https://img.icons8.com/fluency/16/checkmark.png" alt="done"/> | `Annuncio` astratta, interfacce Gestore | Principi OOP applicati |
+| **Campi Privati** | <img src="https://img.icons8.com/fluency/16/checkmark.png" alt="yes"/> | <img src="https://img.icons8.com/fluency/16/checkmark.png" alt="done"/> | Encapsulation completo | Getter/Setter pubblici |
+| **Metodi Compatti** | <img src="https://img.icons8.com/fluency/16/checkmark.png" alt="yes"/> | <img src="https://img.icons8.com/fluency/16/checkmark.png" alt="done"/> | Single Responsibility | Codice ben strutturato |
+
+### <img src="https://img.icons8.com/fluency/20/rocket.png" alt="extra"/> Funzionalità Extra Implementate
+
+| Feature Extra | Descrizione | Valore Aggiunto | Implementazione |
+|--------------|-------------|----------------|-----------------|
+| **Layout Responsivo GUI** | Adattamento automatico finestra | <img src="https://img.icons8.com/fluency/16/star.png" alt="star"/> UX moderna | CardLayout dinamico |
+| **Dual Mode GUI** | Toggle Annunci/Utenti | <img src="https://img.icons8.com/fluency/16/star.png" alt="star"/> Gestione completa | Bottone switch |
+| **Auto-Save GUI** | Salvataggio automatico | <img src="https://img.icons8.com/fluency/16/star.png" alt="star"/> Protezione dati | File chooser integrato |
+| **Correlazioni Visuali** | Popup annunci correlati | <img src="https://img.icons8.com/fluency/16/star.png" alt="star"/> Discovery intelligente | Tabelle filtrate |
+| **Validazione Robusta** | Regex parole chiave | <img src="https://img.icons8.com/fluency/16/star.png" alt="star"/> Input sicuro | Pattern validation |
 
 ### <img src="https://img.icons8.com/fluency/20/file-extension.png" alt="structure"/> Struttura File
 
