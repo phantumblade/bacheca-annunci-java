@@ -19,17 +19,55 @@
 
 Il **Sistema di Gestione Bacheca Annunci** è un'applicazione Java completa che implementa un marketplace digitale per annunci di acquisto e vendita. Utilizza il pattern architetturale MVC e offre sia interfaccia grafica (GUI) che da riga di comando (CLI).
 
-### ✨ Caratteristiche Principali
+### <img src="https://img.icons8.com/fluency/24/star.png" alt="star"/> Caratteristiche Principali
 
 | Funzionalità | Descrizione | Status |
 |-------------|-------------|--------|
-| 🏪 **Gestione Annunci** | Creazione, modifica e ricerca annunci | ✅ Completato |
-| 👥 **Gestione Utenti** | Registrazione e autenticazione utenti | ✅ Completato |
-| 🖥️ **Interfaccia GUI** | Interfaccia grafica moderna con Swing | ✅ Completato |
-| ⌨️ **Interfaccia CLI** | Interfaccia testuale per terminale | ✅ Completato |
-| 💾 **Persistenza CSV** | Salvataggio e caricamento dati | ✅ Completato |
-| 🔍 **Ricerca Avanzata** | Ricerca per parole chiave con correlazione | ✅ Completato |
-| ⚡ **Validazione Dati** | Sistema robusto con eccezioni personalizzate | ✅ Completato |
+| <img src="https://img.icons8.com/fluency/20/shop.png" alt="shop"/> **Gestione Annunci** | Creazione, modifica e ricerca annunci | <img src="https://img.icons8.com/fluency/16/checkmark.png" alt="done"/> Completato |
+| <img src="https://img.icons8.com/fluency/20/user-group.png" alt="users"/> **Gestione Utenti** | Registrazione e autenticazione utenti | <img src="https://img.icons8.com/fluency/16/checkmark.png" alt="done"/> Completato |
+| <img src="https://img.icons8.com/fluency/20/monitor.png" alt="gui"/> **Interfaccia GUI** | Interfaccia grafica moderna con Swing | <img src="https://img.icons8.com/fluency/16/checkmark.png" alt="done"/> Completato |
+| <img src="https://img.icons8.com/fluency/20/console.png" alt="cli"/> **Interfaccia CLI** | Interfaccia testuale per terminale | <img src="https://img.icons8.com/fluency/16/checkmark.png" alt="done"/> Completato |
+| <img src="https://img.icons8.com/fluency/20/database.png" alt="database"/> **Persistenza CSV** | Salvataggio e caricamento dati | <img src="https://img.icons8.com/fluency/16/checkmark.png" alt="done"/> Completato |
+| <img src="https://img.icons8.com/fluency/20/search.png" alt="search"/> **Ricerca Avanzata** | Ricerca per parole chiave con correlazione | <img src="https://img.icons8.com/fluency/16/checkmark.png" alt="done"/> Completato |
+| <img src="https://img.icons8.com/fluency/20/security-checked.png" alt="security"/> **Validazione Dati** | Sistema robusto con eccezioni personalizzate | <img src="https://img.icons8.com/fluency/16/checkmark.png" alt="done"/> Completato |
+
+---
+
+## <img src="https://img.icons8.com/fluency/24/clipboard-task.png" alt="task"/> Stato Implementazione vs Specifiche
+
+Basato sul documento `docs/Progetto 24-25.pdf`, ecco lo stato di implementazione:
+
+### <img src="https://img.icons8.com/fluency/20/checkmark.png" alt="done"/> Requisiti Implementati
+
+| Componente | Specificato | Implementato | Note |
+|-----------|------------|-------------|------|
+| **Modello Dati** | <img src="https://img.icons8.com/fluency/16/checkmark.png" alt="yes"/> | <img src="https://img.icons8.com/fluency/16/checkmark.png" alt="done"/> | Pattern ereditarietà con classi astratte |
+| **Pattern MVC** | <img src="https://img.icons8.com/fluency/16/checkmark.png" alt="yes"/> | <img src="https://img.icons8.com/fluency/16/checkmark.png" alt="done"/> | Separazione completa M-V-C |
+| **Interfaccia CLI** | <img src="https://img.icons8.com/fluency/16/checkmark.png" alt="yes"/> | <img src="https://img.icons8.com/fluency/16/checkmark.png" alt="done"/> | Menu interattivo completo |
+| **Gestione File** | <img src="https://img.icons8.com/fluency/16/checkmark.png" alt="yes"/> | <img src="https://img.icons8.com/fluency/16/checkmark.png" alt="done"/> | I/O CSV con parsing robusto |
+| **Eccezioni** | <img src="https://img.icons8.com/fluency/16/checkmark.png" alt="yes"/> | <img src="https://img.icons8.com/fluency/16/checkmark.png" alt="done"/> | Eccezioni personalizzate multiple |
+| **Javadoc** | <img src="https://img.icons8.com/fluency/16/checkmark.png" alt="yes"/> | <img src="https://img.icons8.com/fluency/16/checkmark.png" alt="done"/> | Documentazione completa |
+
+### <img src="https://img.icons8.com/fluency/20/star.png" alt="extra"/> Funzionalità Extra Implementate
+
+| Feature | Descrizione | Valore Aggiunto |
+|---------|-------------|----------------|
+| **GUI Swing** | Interfaccia grafica completa | <img src="https://img.icons8.com/fluency/16/plus.png" alt="plus"/> Layout responsivo |
+| **Ricerca Correlazioni** | Matching automatico annunci | <img src="https://img.icons8.com/fluency/16/plus.png" alt="plus"/> UX intelligente |
+| **Dual Interface** | CLI + GUI simultanee | <img src="https://img.icons8.com/fluency/16/plus.png" alt="plus"/> Flessibilità utilizzo |
+| **Auto-Cleanup** | Rimozione annunci scaduti | <img src="https://img.icons8.com/fluency/16/plus.png" alt="plus"/> Manutenzione automatica |
+
+### <img src="https://img.icons8.com/fluency/20/file-extension.png" alt="structure"/> Struttura File
+
+```
+📁 Project Root/
+├── 📂 src/               # Codice sorgente Java
+├── 📂 data/              # File CSV dati
+├── 📂 docs/              # Documentazione progetto
+├── 📂 lib/               # Librerie esterne (JUnit)
+├── 📂 jbook/             # Utility input
+└── 📄 README.md          # Documentazione principale
+```
 
 ---
 
