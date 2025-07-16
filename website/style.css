@@ -6,45 +6,68 @@
 }
 
 :root {
-    /* Colori Claude */
-    --claude-orange: #D97706;
-    --claude-dark-orange: #B45309;
-    --claude-light-orange: #F59E0B;
-    --claude-bg: #1A1A1A;
-    --claude-surface: #2D2D2D;
-    --claude-text: #F3F4F6;
-    --claude-text-secondary: #9CA3AF;
-    --claude-border: #374151;
+    /* Colori Claude Light Theme */
+    --claude-primary: #D97706;
+    --claude-primary-hover: #B45309;
+    --claude-primary-light: #FED7AA;
+    --claude-bg: #FAFAFA;
+    --claude-surface: #FFFFFF;
+    --claude-surface-hover: #F5F5F5;
+    --claude-text: #1F2937;
+    --claude-text-secondary: #6B7280;
+    --claude-text-muted: #9CA3AF;
+    --claude-border: #E5E7EB;
+    --claude-border-hover: #D1D5DB;
     --claude-accent: #3B82F6;
+    --claude-success: #10B981;
+    --claude-warning: #F59E0B;
+    --claude-error: #EF4444;
     
-    /* Brutalist spacing */
+    /* Modern spacing */
     --spacing-xs: 4px;
     --spacing-sm: 8px;
     --spacing-md: 16px;
     --spacing-lg: 24px;
     --spacing-xl: 32px;
     --spacing-xxl: 48px;
+    --spacing-xxxl: 64px;
     
-    /* Typography */
+    /* Typography moderna */
+    --font-primary: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --font-mono: "Fira Code", "SF Mono", Consolas, monospace;
     --font-size-xs: 12px;
     --font-size-sm: 14px;
     --font-size-md: 16px;
     --font-size-lg: 18px;
-    --font-size-xl: 24px;
-    --font-size-xxl: 32px;
+    --font-size-xl: 20px;
+    --font-size-xxl: 24px;
+    --font-size-xxxl: 32px;
     
-    /* Shadows */
-    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.5);
-    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.3);
-    --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.4);
+    /* Shadows moderne */
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
+    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+    --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.15);
+    
+    /* Borders e radius */
+    --border-radius: 8px;
+    --border-radius-lg: 12px;
+    --border-radius-xl: 16px;
+    
+    /* Transizioni */
+    --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 body {
-    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-family: var(--font-primary);
     background-color: var(--claude-bg);
     color: var(--claude-text);
     line-height: 1.6;
     overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 /* Container */
@@ -56,195 +79,174 @@ body {
 
 /* Header */
 .header {
-    background: linear-gradient(135deg, var(--claude-orange) 0%, var(--claude-dark-orange) 100%);
-    padding: var(--spacing-xxl) 0;
-    border-bottom: 4px solid var(--claude-dark-orange);
+    background: var(--claude-surface);
+    padding: var(--spacing-lg) 0;
+    border-bottom: 1px solid var(--claude-border);
     position: relative;
-    overflow: hidden;
-}
-
-.header::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: repeating-linear-gradient(
-        45deg,
-        transparent,
-        transparent 10px,
-        rgba(255, 255, 255, 0.1) 10px,
-        rgba(255, 255, 255, 0.1) 20px
-    );
 }
 
 .header-content {
     text-align: center;
     position: relative;
-    z-index: 1;
 }
 
 .header-icon {
-    width: 60px;
-    height: 60px;
+    width: 48px;
+    height: 48px;
     margin-bottom: var(--spacing-md);
-    filter: invert(1);
+    color: var(--claude-primary);
 }
 
 .header h1 {
-    font-size: var(--font-size-xxl);
-    font-weight: 900;
-    letter-spacing: 2px;
+    font-size: var(--font-size-xxxl);
+    font-weight: 700;
+    letter-spacing: -0.5px;
     margin-bottom: var(--spacing-sm);
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    color: var(--claude-text);
 }
 
 .header p {
     font-size: var(--font-size-lg);
-    opacity: 0.9;
-    font-weight: 500;
+    color: var(--claude-text-secondary);
+    font-weight: 400;
+    max-width: 600px;
+    margin: 0 auto;
 }
 
 /* Main Content */
 .main-content {
-    padding: var(--spacing-xxl) 0;
+    padding: var(--spacing-xl) 0;
 }
 
-/* Project Overview */
+/* Project Overview - Più compatta */
 .project-overview {
-    margin-bottom: var(--spacing-xxl);
+    margin-bottom: var(--spacing-lg);
+    padding: var(--spacing-md);
+    background: var(--claude-surface);
+    border: 1px solid var(--claude-border);
+    border-radius: var(--border-radius);
 }
 
 .project-overview h2 {
-    font-size: var(--font-size-xl);
-    font-weight: 800;
-    margin-bottom: var(--spacing-lg);
-    color: var(--claude-orange);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    border-bottom: 3px solid var(--claude-orange);
-    padding-bottom: var(--spacing-sm);
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    margin-bottom: var(--spacing-md);
+    color: var(--claude-text);
 }
 
 .overview-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: var(--spacing-lg);
-    margin-top: var(--spacing-lg);
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-md);
 }
 
 .overview-card {
-    background: var(--claude-surface);
-    border: 2px solid var(--claude-border);
-    border-radius: 0;
-    padding: var(--spacing-lg);
+    background: var(--claude-bg);
+    border: 1px solid var(--claude-border);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-md);
     text-align: center;
-    transition: all 0.3s ease;
+    transition: all var(--transition-normal);
     position: relative;
-    overflow: hidden;
-}
-
-.overview-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(217, 119, 6, 0.1), transparent);
-    transition: left 0.5s ease;
-}
-
-.overview-card:hover::before {
-    left: 100%;
 }
 
 .overview-card:hover {
-    border-color: var(--claude-orange);
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-lg);
+    border-color: var(--claude-primary);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
 }
 
-.overview-card img {
-    width: 40px;
-    height: 40px;
-    margin-bottom: var(--spacing-md);
-    filter: invert(1);
+.overview-card i {
+    font-size: 24px;
+    margin-bottom: var(--spacing-sm);
+    color: var(--claude-primary);
 }
 
 .overview-card h3 {
-    font-size: var(--font-size-lg);
-    font-weight: 700;
-    margin-bottom: var(--spacing-sm);
-    color: var(--claude-orange);
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    margin-bottom: var(--spacing-xs);
+    color: var(--claude-text);
 }
 
 .overview-card p {
     color: var(--claude-text-secondary);
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-xs);
+    line-height: 1.4;
 }
 
-/* File Explorer */
+/* File Explorer - Stile Claude moderno */
 .file-explorer {
     background: var(--claude-surface);
-    border: 2px solid var(--claude-border);
-    border-radius: 0;
-    padding: var(--spacing-lg);
+    border: 1px solid var(--claude-border);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-xl);
+    box-shadow: var(--shadow-sm);
 }
 
 .file-explorer h2 {
-    font-size: var(--font-size-xl);
-    font-weight: 800;
-    margin-bottom: var(--spacing-lg);
-    color: var(--claude-orange);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    border-bottom: 3px solid var(--claude-orange);
-    padding-bottom: var(--spacing-sm);
+    font-size: var(--font-size-xxl);
+    font-weight: 700;
+    margin-bottom: var(--spacing-xl);
+    color: var(--claude-text);
+    letter-spacing: -0.5px;
 }
 
 .file-tree {
-    font-family: 'Courier New', monospace;
+    font-family: var(--font-mono);
     font-size: var(--font-size-sm);
+    line-height: 1.6;
 }
 
 .file-item {
     display: flex;
     align-items: center;
-    padding: var(--spacing-sm);
+    padding: var(--spacing-sm) var(--spacing-md);
     margin: 2px 0;
-    border-radius: 0;
+    border-radius: var(--border-radius);
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all var(--transition-fast);
     position: relative;
     user-select: none;
+    border: 1px solid transparent;
 }
 
 .file-item:hover {
-    background: var(--claude-border);
-    border-left: 4px solid var(--claude-orange);
+    background: var(--claude-surface-hover);
+    border-color: var(--claude-border-hover);
 }
 
 .file-item.folder {
     font-weight: 600;
+    color: var(--claude-text);
+}
+
+.file-item.folder:hover {
+    background: var(--claude-primary-light);
+    border-color: var(--claude-primary);
 }
 
 .file-item.file {
-    padding-left: var(--spacing-lg);
+    padding-left: var(--spacing-xl);
     color: var(--claude-text-secondary);
+    font-weight: 400;
 }
 
 .file-item.file:hover {
     color: var(--claude-text);
-    background: var(--claude-bg);
+    background: var(--claude-surface-hover);
+    border-color: var(--claude-border-hover);
 }
 
-.file-item img {
+.file-item i {
     width: 20px;
     height: 20px;
-    margin-right: var(--spacing-sm);
-    filter: invert(1);
+    margin-right: var(--spacing-md);
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .file-item span:first-of-type {
@@ -252,16 +254,24 @@ body {
 }
 
 .expand-icon {
-    font-weight: bold;
-    font-size: var(--font-size-md);
-    color: var(--claude-orange);
+    font-weight: 600;
+    font-size: var(--font-size-sm);
+    color: var(--claude-text-muted);
     margin-left: var(--spacing-sm);
+    transition: transform var(--transition-fast);
+    width: 20px;
+    text-align: center;
+}
+
+.file-item.expanded .expand-icon {
+    transform: rotate(90deg);
 }
 
 .file-children {
-    padding-left: var(--spacing-lg);
-    border-left: 1px solid var(--claude-border);
-    margin-left: var(--spacing-sm);
+    padding-left: var(--spacing-xl);
+    border-left: 2px solid var(--claude-border);
+    margin-left: var(--spacing-md);
+    margin-top: var(--spacing-xs);
 }
 
 .file-children.hidden {
@@ -270,9 +280,21 @@ body {
 
 .file-children.visible {
     display: block;
+    animation: slideDown var(--transition-normal);
 }
 
-/* Modal */
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Modal - Stile Claude moderno */
 .modal {
     display: none;
     position: fixed;
@@ -281,74 +303,94 @@ body {
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
 }
 
 .modal-content {
     background-color: var(--claude-surface);
     margin: 5% auto;
     padding: 0;
-    border: 3px solid var(--claude-orange);
-    border-radius: 0;
+    border: 1px solid var(--claude-border);
+    border-radius: var(--border-radius-xl);
     width: 90%;
-    max-width: 600px;
-    max-height: 80vh;
+    max-width: 700px;
+    max-height: 85vh;
     overflow-y: auto;
     position: relative;
+    box-shadow: var(--shadow-xl);
 }
 
 .close {
     position: absolute;
-    top: var(--spacing-sm);
+    top: var(--spacing-md);
     right: var(--spacing-md);
-    color: var(--claude-text-secondary);
-    font-size: 28px;
-    font-weight: bold;
+    color: var(--claude-text-muted);
+    font-size: 24px;
+    font-weight: 400;
     cursor: pointer;
     z-index: 1001;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--border-radius);
+    transition: all var(--transition-fast);
 }
 
 .close:hover {
-    color: var(--claude-orange);
+    color: var(--claude-text);
+    background: var(--claude-surface-hover);
 }
 
 .modal-header {
-    background: var(--claude-orange);
-    color: var(--claude-bg);
-    padding: var(--spacing-lg);
+    background: var(--claude-surface);
+    border-bottom: 1px solid var(--claude-border);
+    color: var(--claude-text);
+    padding: var(--spacing-xl);
     display: flex;
     align-items: center;
     gap: var(--spacing-md);
 }
 
-.modal-header img {
-    width: 40px;
-    height: 40px;
-    filter: invert(1);
+.modal-header i {
+    font-size: 32px;
+    color: var(--claude-primary);
 }
 
 .modal-header h2 {
     font-size: var(--font-size-xl);
-    font-weight: 700;
+    font-weight: 600;
     margin: 0;
+    color: var(--claude-text);
 }
 
 .modal-body {
-    padding: var(--spacing-lg);
+    padding: var(--spacing-xl);
 }
 
 .modal-body h3 {
-    color: var(--claude-orange);
+    color: var(--claude-primary);
     font-size: var(--font-size-lg);
     font-weight: 600;
-    margin-bottom: var(--spacing-sm);
-    margin-top: var(--spacing-lg);
-    text-transform: uppercase;
-    letter-spacing: 1px;
+    margin-bottom: var(--spacing-md);
+    margin-top: var(--spacing-xl);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
 }
 
 .modal-body h3:first-child {
     margin-top: 0;
+}
+
+.modal-body h3::before {
+    content: '';
+    width: 4px;
+    height: 20px;
+    background: var(--claude-primary);
+    border-radius: 2px;
 }
 
 .modal-body p {
@@ -364,12 +406,19 @@ body {
 
 .modal-body li {
     background: var(--claude-bg);
-    padding: var(--spacing-sm);
-    margin: var(--spacing-xs) 0;
-    border-left: 3px solid var(--claude-orange);
+    padding: var(--spacing-md);
+    margin: var(--spacing-sm) 0;
+    border-left: 3px solid var(--claude-primary);
     color: var(--claude-text-secondary);
-    font-family: 'Courier New', monospace;
+    font-family: var(--font-mono);
     font-size: var(--font-size-sm);
+    border-radius: var(--border-radius);
+    transition: all var(--transition-fast);
+}
+
+.modal-body li:hover {
+    background: var(--claude-surface-hover);
+    color: var(--claude-text);
 }
 
 /* Responsive Design */
