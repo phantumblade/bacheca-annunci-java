@@ -1,9 +1,9 @@
-package src.test;
+package test;
 import static org.junit.jupiter.api.Assertions.*;
 
 //import delle classi necessarie per il test
-import src.controller.GestoreUtenti;
-import src.bacheca.Utente;
+import controller.GestoreUtenti;
+import bacheca.Utente;
 
 import org.junit.jupiter.api.Test;
 

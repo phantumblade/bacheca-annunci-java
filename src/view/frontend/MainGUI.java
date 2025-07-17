@@ -26,7 +26,8 @@ import java.util.List;
 import java.net.URL;
 
 public class MainGUI extends JFrame {
-    private JPanel optionsPanel;
+    private JPanel optionsPanelCompatto;
+    private JPanel optionsPanelEsteso;
     private JButton switchModeButton; // Bottone per alternare modalità bacheca/utenti
     private boolean modalitaUtenti = false; // Stato: false = Bacheca, true = Utenti
     private JButton resetButton; // Pulsante di reset
@@ -47,6 +48,7 @@ public class MainGUI extends JFrame {
 
         initComponents();
         caricaAnnunciDaFile("data/annunci.csv");
+        caricaUtentiDaFile("data/utenti.csv");
     }
 
     private void initComponents() {
@@ -73,9 +75,10 @@ public class MainGUI extends JFrame {
 
                 if (width > 900) {
                     cl.show(mainPanel, "Espanso");  // Mostra il layout con le tabelle
-                    aggiungiTabelle(tabellaPanel);  // Assicurati che le tabelle vengano aggiornate
+                    aggiornaVistaEstesa();  // Aggiorna la vista estesa mantenendo la modalità corrente
                 } else {
                     cl.show(mainPanel, "Compatto");  // Torna alla visualizzazione compatta
+                    aggiornaVistaCompatta();  // Aggiorna la vista compatta mantenendo la modalità corrente
                 }
             }
         });
@@ -178,20 +181,15 @@ public class MainGUI extends JFrame {
         benvenutoLabel.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
         panel.add(benvenutoLabel, BorderLayout.NORTH);
 
-        // Bottoni centrati
-        JPanel optionsPanel = new JPanel();
-        optionsPanel.setLayout(new BoxLayout(optionsPanel, BoxLayout.Y_AXIS));
-        optionsPanel.setBorder(BorderFactory.createEmptyBorder(30, 120, 20, 120));  // Centrato
+        // Bottoni centrati - pannello specifico per modalità compatta
+        optionsPanelCompatto = new JPanel();
+        optionsPanelCompatto.setLayout(new BoxLayout(optionsPanelCompatto, BoxLayout.Y_AXIS));
+        optionsPanelCompatto.setBorder(BorderFactory.createEmptyBorder(30, 120, 20, 120));  // Centrato
 
-        // Tutti i bottoni (incluso "Visualizza tutti gli annunci")
-        addOption(optionsPanel, "Aggiungi un nuovo annuncio", e -> mostraFormAggiungiAnnuncio(e));
-        addOption(optionsPanel, "Aggiungi Parola chiave a un Annuncio", e -> mostraFormAggiungiParolaChiave(e));
-        addOption(optionsPanel, "Visualizza tutti gli annunci", e -> aggiornaListaAnnunci(e));  // Bottone visibile
-        addOption(optionsPanel, "Pulisci la bacheca da annunci scaduti", e -> pulisciBacheca(e));
-        addOption(optionsPanel, "Rimuovi un annuncio esistente", e -> mostraFormRimuoviAnnuncio(e));
-        addOption(optionsPanel, "Cerca Annunci per Parola chiave", e -> mostraFormCercaAnnunci(e));
+        // Carica i bottoni iniziali (modalità annunci)
+        aggiornaVistaCompatta();
 
-        panel.add(optionsPanel, BorderLayout.CENTER);
+        panel.add(optionsPanelCompatto, BorderLayout.CENTER);
 
         // Bottoni inferiori (Exit e Salva)
         panel.add(creaBottomPanel(), BorderLayout.SOUTH);
@@ -214,20 +212,13 @@ public class MainGUI extends JFrame {
         sinistraPanel.add(benvenutoLabel);
         sinistraPanel.add(Box.createVerticalStrut(20));  // Spazio tra il titolo e i bottoni
 
-        // Pannello bottoni spostato a sinistra
-        optionsPanel = new JPanel();
-        optionsPanel.setLayout(new BoxLayout(optionsPanel, BoxLayout.Y_AXIS));
-        optionsPanel.setAlignmentX(Component.LEFT_ALIGNMENT);  // Allineamento con il titolo
-        optionsPanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 20, 0));
+        // Pannello bottoni spostato a sinistra - pannello specifico per modalità estesa
+        optionsPanelEsteso = new JPanel();
+        optionsPanelEsteso.setLayout(new BoxLayout(optionsPanelEsteso, BoxLayout.Y_AXIS));
+        optionsPanelEsteso.setAlignmentX(Component.LEFT_ALIGNMENT);  // Allineamento con il titolo
+        optionsPanelEsteso.setBorder(BorderFactory.createEmptyBorder(10, 0, 20, 0));
 
-        // Tutti i bottoni TRANNE "Visualizza tutti gli annunci"
-        addOption(optionsPanel, "Aggiungi un nuovo annuncio", e -> mostraFormAggiungiAnnuncio(e));
-        addOption(optionsPanel, "Aggiungi Parola chiave a un Annuncio", e -> mostraFormAggiungiParolaChiave(e));
-        addOption(optionsPanel, "Pulisci la bacheca da annunci scaduti", e -> pulisciBacheca(e));
-        addOption(optionsPanel, "Rimuovi un annuncio esistente", e -> mostraFormRimuoviAnnuncio(e));
-        addOption(optionsPanel, "Cerca Annunci per Parola chiave", e -> mostraFormCercaAnnunci(e));
-
-        sinistraPanel.add(optionsPanel);
+        sinistraPanel.add(optionsPanelEsteso);
 
         // Aggiungi il pannello sinistra al layout principale
         panel.add(sinistraPanel, BorderLayout.WEST);
@@ -238,6 +229,9 @@ public class MainGUI extends JFrame {
         aggiungiTabelle(tabellaPanel);  // Aggiunge le tabelle al caricamento
 
         panel.add(tabellaPanel, BorderLayout.CENTER);
+        
+        // Carica i bottoni iniziali (modalità annunci) DOPO aver creato tabellaPanel
+        aggiornaVistaEstesa();
 
         // Bottoni inferiori (Exit e Salva)
         panel.add(creaBottomPanel(), BorderLayout.SOUTH);
@@ -293,8 +287,7 @@ public class MainGUI extends JFrame {
         // Cambia l'icona del bottone tra 👤 (utenti) e 📋 (bacheca)
         switchModeButton.setText(modalitaUtenti ? "📋" : "👤");
 
-        // Aggiorna i bottoni e la vista corretta
-        aggiornaVistaBottoni();
+        // Aggiorna la vista corretta
         if (getWidth() > 900) {
             aggiornaVistaEstesa();
         } else {
@@ -303,65 +296,64 @@ public class MainGUI extends JFrame {
     }
 
     private void aggiornaVistaBottoni() {
-        optionsPanel.removeAll(); // Svuota i bottoni
+        optionsPanelEsteso.removeAll(); // Svuota i bottoni
+        
+        // Imposta il padding corretto per la modalità estesa
+        optionsPanelEsteso.setBorder(BorderFactory.createEmptyBorder(10, 0, 20, 0));
 
         if (modalitaUtenti) {
             // Mostra i bottoni per la gestione utenti
-            addOption(optionsPanel, "Aggiungi Utente", e -> mostraFormAggiungiUtente(e));
-            addOption(optionsPanel, "Rimuovi Utente", e -> mostraFormRimuoviUtente(e));
-            addOption(optionsPanel, "Cerca Utente", e -> mostraFormCercaUtente(e));
-            addOption(optionsPanel, "Visualizza Utenti", e -> mostraUtenti());
+            addOption(optionsPanelEsteso, "Aggiungi Utente", e -> mostraFormAggiungiUtente(e));
+            addOption(optionsPanelEsteso, "Rimuovi Utente", e -> mostraFormRimuoviUtente(e));
+            addOption(optionsPanelEsteso, "Cerca Utente", e -> mostraFormCercaUtente(e));
+            // Non aggiungere "Visualizza Utenti" in modalità estesa perché la tabella è già visibile
         } else {
             // Mostra i bottoni per la gestione della bacheca
-            addOption(optionsPanel, "Aggiungi un nuovo annuncio", e -> mostraFormAggiungiAnnuncio(e));
-            addOption(optionsPanel, "Aggiungi Parola chiave a un Annuncio", e -> mostraFormAggiungiParolaChiave(e));
-            addOption(optionsPanel, "Pulisci la bacheca da annunci scaduti", e -> pulisciBacheca(e));
-            addOption(optionsPanel, "Rimuovi un annuncio esistente", e -> mostraFormRimuoviAnnuncio(e));
-            addOption(optionsPanel, "Cerca Annunci per Parola chiave", e -> mostraFormCercaAnnunci(e));
+            addOption(optionsPanelEsteso, "Aggiungi un nuovo annuncio", e -> mostraFormAggiungiAnnuncio(e));
+            addOption(optionsPanelEsteso, "Aggiungi Parola chiave a un Annuncio", e -> mostraFormAggiungiParolaChiave(e));
+            addOption(optionsPanelEsteso, "Pulisci la bacheca da annunci scaduti", e -> pulisciBacheca(e));
+            addOption(optionsPanelEsteso, "Rimuovi un annuncio esistente", e -> mostraFormRimuoviAnnuncio(e));
+            addOption(optionsPanelEsteso, "Cerca Annunci per Parola chiave", e -> mostraFormCercaAnnunci(e));
         }
 
-        optionsPanel.revalidate();
-        optionsPanel.repaint();
+        optionsPanelEsteso.revalidate();
+        optionsPanelEsteso.repaint();
     }
 
     private void aggiornaVistaCompatta() {
-        optionsPanel.removeAll();
+        optionsPanelCompatto.removeAll();
+        
+        // Imposta il padding corretto per la modalità compatta
+        optionsPanelCompatto.setBorder(BorderFactory.createEmptyBorder(30, 120, 20, 120));
 
         if (modalitaUtenti) {
-            addOption(optionsPanel, "Aggiungi Utente", e -> mostraFormAggiungiUtente(e));
-            addOption(optionsPanel, "Rimuovi Utente", e -> mostraFormRimuoviUtente(e));
-            addOption(optionsPanel, "Cerca Utente", e -> mostraFormCercaUtente(e));
-
-            // Ora il pulsante aprirà una finestra di dialogo con la lista utenti
-            addOption(optionsPanel, "Visualizza Utenti", e -> mostraUtenti());
+            addOption(optionsPanelCompatto, "Aggiungi Utente", e -> mostraFormAggiungiUtente(e));
+            addOption(optionsPanelCompatto, "Rimuovi Utente", e -> mostraFormRimuoviUtente(e));
+            addOption(optionsPanelCompatto, "Cerca Utente", e -> mostraFormCercaUtente(e));
+            addOption(optionsPanelCompatto, "Visualizza Utenti", e -> mostraUtenti());
         } else {
-            addOption(optionsPanel, "Aggiungi un nuovo annuncio", e -> mostraFormAggiungiAnnuncio(e));
-            addOption(optionsPanel, "Aggiungi Parola chiave a un Annuncio", e -> mostraFormAggiungiParolaChiave(e));
-            addOption(optionsPanel, "Pulisci la bacheca da annunci scaduti", e -> pulisciBacheca(e));
-            addOption(optionsPanel, "Rimuovi un annuncio esistente", e -> mostraFormRimuoviAnnuncio(e));
-            addOption(optionsPanel, "Cerca Annunci per Parola chiave", e -> mostraFormCercaAnnunci(e));
+            addOption(optionsPanelCompatto, "Aggiungi un nuovo annuncio", e -> mostraFormAggiungiAnnuncio(e));
+            addOption(optionsPanelCompatto, "Aggiungi Parola chiave a un Annuncio", e -> mostraFormAggiungiParolaChiave(e));
+            addOption(optionsPanelCompatto, "Visualizza tutti gli annunci", e -> aggiornaListaAnnunci(e));
+            addOption(optionsPanelCompatto, "Pulisci la bacheca da annunci scaduti", e -> pulisciBacheca(e));
+            addOption(optionsPanelCompatto, "Rimuovi un annuncio esistente", e -> mostraFormRimuoviAnnuncio(e));
+            addOption(optionsPanelCompatto, "Cerca Annunci per Parola chiave", e -> mostraFormCercaAnnunci(e));
         }
 
-        optionsPanel.revalidate();
-        optionsPanel.repaint();
+        optionsPanelCompatto.revalidate();
+        optionsPanelCompatto.repaint();
     }
 
     private void aggiornaVistaEstesa() {
+        // Aggiorna i bottoni per la vista estesa
+        aggiornaVistaBottoni();
+        
         tabellaPanel.removeAll();
 
         if (modalitaUtenti) {
             tabellaPanel.setLayout(new BorderLayout());
             tabellaPanel.add(creaTabellaUtenti(), BorderLayout.CENTER);
-
-            // Rimuove "Visualizza Utenti" invece di nasconderlo
-            for (Component comp : optionsPanel.getComponents()) {
-                if (comp instanceof JButton button && button.getText().equals("Visualizza Utenti")) {
-                    optionsPanel.remove(button);
-                    break;  // Esci dal ciclo dopo aver rimosso il bottone
-                }
-            }
-            optionsPanel.revalidate();
-            optionsPanel.repaint();        } else {
+        } else {
             aggiungiTabelle(tabellaPanel);
         }
 
@@ -406,9 +398,20 @@ public class MainGUI extends JFrame {
             String nome = nomeField.getText().trim();
 
             if (!email.isEmpty() && !nome.isEmpty()) {
-                gestoreUtenti.aggiungiUtente(new Utente(nome, email));
-                JOptionPane.showMessageDialog(dialog, "Utente aggiunto con successo!");
-                dialog.dispose();
+                try {
+                    gestoreUtenti.aggiungiUtente(new Utente(email, nome));
+                    salvaUtentiSuFile(); // Salva automaticamente
+                    JOptionPane.showMessageDialog(dialog, "Utente aggiunto con successo!");
+                    dialog.dispose();
+                    // Aggiorna la vista se siamo in modalità utenti
+                    if (modalitaUtenti) {
+                        if (getWidth() > 900) {
+                            aggiornaVistaEstesa();
+                        }
+                    }
+                } catch (IllegalArgumentException ex) {
+                    JOptionPane.showMessageDialog(dialog, "Errore: " + ex.getMessage(), "Errore", JOptionPane.ERROR_MESSAGE);
+                }
             } else {
                 JOptionPane.showMessageDialog(dialog, "Compila tutti i campi.", "Errore", JOptionPane.ERROR_MESSAGE);
             }
@@ -440,7 +443,12 @@ public class MainGUI extends JFrame {
             if (!email.isEmpty()) {
                 boolean success = gestoreUtenti.rimuoviUtente(email);
                 if (success) {
+                    salvaUtentiSuFile(); // Salva automaticamente
                     JOptionPane.showMessageDialog(dialog, "Utente rimosso con successo!");
+                    // Aggiorna la vista se siamo in modalità utenti
+                    if (modalitaUtenti && getWidth() > 900) {
+                        aggiornaVistaEstesa();
+                    }
                 } else {
                     JOptionPane.showMessageDialog(dialog, "Utente non trovato.", "Errore", JOptionPane.ERROR_MESSAGE);
                 }
@@ -538,6 +546,23 @@ public class MainGUI extends JFrame {
             gestoreBacheca.leggiDaFile(filePath);
         } catch (IOException | GestoreBachecaException e) {
             JOptionPane.showMessageDialog(this, "Errore durante il caricamento del file: " + e.getMessage(), "Errore", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void caricaUtentiDaFile(String filePath) {
+        try {
+            gestoreUtenti.leggiDaFile(filePath);
+        } catch (IOException e) {
+            // Non mostrare errore se il file non esiste (primo avvio)
+            System.out.println("File utenti non trovato (primo avvio): " + filePath);
+        }
+    }
+
+    private void salvaUtentiSuFile() {
+        try {
+            gestoreUtenti.salvaSuFile("data/utenti.csv");
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(this, "Errore durante il salvataggio degli utenti: " + e.getMessage(), "Errore", JOptionPane.ERROR_MESSAGE);
         }
     }
 

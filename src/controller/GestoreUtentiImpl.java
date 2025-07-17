@@ -2,6 +2,11 @@ package controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 
 import bacheca.Utente;
 
@@ -110,5 +115,66 @@ public class GestoreUtentiImpl implements GestoreUtenti {
         // Ritorniamo una nuova lista per evitare che dall'esterno
         // qualcuno modifichi direttamente l'array statico.
         return new ArrayList<>(UTENTI_REGISTRATI);
+    }
+
+    // ------------------------------------------------------------------
+    // METODO: salvaSuFile
+    // ------------------------------------------------------------------
+    /**
+     * Salva tutti gli utenti registrati su file CSV.
+     * Formato: email,nome
+     *
+     * @param filePath il percorso del file dove salvare
+     * @throws IOException se ci sono problemi di I/O
+     */
+    @Override
+    public void salvaSuFile(String filePath) throws IOException {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+            // Scrivi header
+            writer.write("email,nome");
+            writer.newLine();
+            
+            // Scrivi tutti gli utenti
+            for (Utente utente : UTENTI_REGISTRATI) {
+                writer.write(utente.getEmail() + "," + utente.getNome());
+                writer.newLine();
+            }
+        }
+    }
+
+    // ------------------------------------------------------------------
+    // METODO: leggiDaFile
+    // ------------------------------------------------------------------
+    /**
+     * Carica gli utenti da file CSV.
+     * Formato: email,nome
+     *
+     * @param filePath il percorso del file da cui caricare
+     * @throws IOException se ci sono problemi di I/O
+     */
+    @Override
+    public void leggiDaFile(String filePath) throws IOException {
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line = reader.readLine(); // Skip header
+            
+            // Pulisce la lista corrente
+            UTENTI_REGISTRATI.clear();
+            
+            // Legge ogni riga
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(",");
+                if (parts.length == 2) {
+                    String email = parts[0].trim();
+                    String nome = parts[1].trim();
+                    
+                    try {
+                        UTENTI_REGISTRATI.add(new Utente(email, nome));
+                    } catch (IllegalArgumentException e) {
+                        // Ignora utenti con dati non validi
+                        System.err.println("Utente non valido ignorato: " + line);
+                    }
+                }
+            }
+        }
     }
 }

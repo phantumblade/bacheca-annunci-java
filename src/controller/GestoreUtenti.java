@@ -1,6 +1,7 @@
 package controller;
 
 import java.util.List;
+import java.io.IOException;
 import bacheca.Utente;
 
 /**
@@ -38,4 +39,20 @@ public abstract interface GestoreUtenti {
      * @return lista di utenti
      */
     List<Utente> getUtentiRegistrati();
+
+    /**
+     * Salva tutti gli utenti registrati su file CSV.
+     *
+     * @param filePath il percorso del file dove salvare
+     * @throws IOException se ci sono problemi di I/O
+     */
+    void salvaSuFile(String filePath) throws IOException;
+
+    /**
+     * Carica gli utenti da file CSV.
+     *
+     * @param filePath il percorso del file da cui caricare
+     * @throws IOException se ci sono problemi di I/O
+     */
+    void leggiDaFile(String filePath) throws IOException;
 }
