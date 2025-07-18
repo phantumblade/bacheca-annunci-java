@@ -149,6 +149,36 @@ const fileDescriptions = {
         dependencies: ['java.util.Scanner'],
         usage: 'Utility per l\'interfaccia CLI. Semplifica la lettura di input utente fornendo metodi type-safe per stringhe, numeri e altri tipi di dati.'
     },
+    'data/utenti.csv': {
+        icon: 'fas fa-file-csv',
+        description: 'File CSV di persistenza per gli utenti del sistema. Contiene tutti gli utenti registrati con email e nome in formato strutturato.',
+        dependencies: ['src/controller/GestoreUtentiImpl.java'],
+        usage: 'Archiviazione permanente dei dati utente. Permette di mantenere gli utenti registrati tra diverse sessioni di utilizzo dell\'applicazione.'
+    },
+    'App/BachecaAnnunci-1.0.dmg': {
+        icon: 'fab fa-apple',
+        description: 'Installatore macOS DMG dell\'applicazione. Contiene l\'app nativa con Java runtime integrato per installazione drag-and-drop.',
+        dependencies: ['BachecaAnnunci.jar'],
+        usage: 'Installazione nativa su macOS. Trascinare l\'app nella cartella Applications per installare il sistema come applicazione nativa.'
+    },
+    'App/resources/Minecraft Education Edition.icns': {
+        icon: 'fas fa-image',
+        description: 'Icona personalizzata dell\'applicazione in formato ICNS per macOS. Utilizzata per l\'app bundle e il DMG.',
+        dependencies: [],
+        usage: 'Icona dell\'applicazione per macOS. Fornisce un\'identità visiva riconoscibile nel dock e nel finder.'
+    },
+    'BachecaAnnunci.jar': {
+        icon: 'fab fa-java',
+        description: 'Archivio JAR eseguibile dell\'applicazione completa. Contiene tutte le classi compilate e le risorse necessarie per l\'esecuzione.',
+        dependencies: ['src/**/*.java', 'data/*.csv'],
+        usage: 'Versione distribuibile dell\'applicazione. Può essere eseguita su qualsiasi sistema con Java 17+ installato usando java -jar.'
+    },
+    'build/compiled-classes': {
+        icon: 'fas fa-file-code',
+        description: 'Directory contenente tutte le classi Java compilate (.class) e le risorse necessarie per l\'esecuzione.',
+        dependencies: ['src/**/*.java'],
+        usage: 'Artefatti di compilazione utilizzati per la creazione del JAR eseguibile e per l\'esecuzione durante lo sviluppo.'
+    },
     'README.md': {
         icon: 'fab fa-markdown',
         description: 'Documentazione completa del progetto in formato Markdown. Contiene panoramica, istruzioni di installazione, architettura e conformità alle specifiche.',
@@ -399,6 +429,95 @@ function enhanceAccessibility() {
 // Initialize accessibility on load
 document.addEventListener('DOMContentLoaded', enhanceAccessibility);
 
+// Download functionality
+function downloadFile(filename) {
+    // Create a temporary download link
+    const link = document.createElement('a');
+    link.href = `../App/${filename}`;
+    link.download = filename;
+    
+    // Try to download the file
+    try {
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        // Show success message
+        showNotification(`Download di ${filename} avviato!`, 'success');
+    } catch (error) {
+        console.error('Download error:', error);
+        showNotification(`Errore durante il download di ${filename}`, 'error');
+        
+        // Fallback: open GitHub releases page
+        window.open('https://github.com/phantumblade/bacheca-annunci-java/releases/latest', '_blank');
+    }
+}
+
+// Show notification
+function showNotification(message, type = 'info') {
+    // Create notification element
+    const notification = document.createElement('div');
+    notification.className = `notification ${type}`;
+    notification.innerHTML = `
+        <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i>
+        <span>${message}</span>
+    `;
+    
+    // Add styles
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: ${type === 'success' ? 'var(--claude-success)' : 'var(--claude-error)'};
+        color: white;
+        padding: 16px 20px;
+        border-radius: 12px;
+        box-shadow: var(--shadow-lg);
+        z-index: 10000;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 500;
+        animation: slideIn 0.3s ease;
+        max-width: 300px;
+    `;
+    
+    // Add animation keyframes
+    if (!document.querySelector('#notification-styles')) {
+        const style = document.createElement('style');
+        style.id = 'notification-styles';
+        style.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes slideOut {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+    }
+    
+    // Add to DOM
+    document.body.appendChild(notification);
+    
+    // Remove after 4 seconds
+    setTimeout(() => {
+        notification.style.animation = 'slideOut 0.3s ease';
+        setTimeout(() => {
+            if (document.body.contains(notification)) {
+                document.body.removeChild(notification);
+            }
+        }, 300);
+    }, 4000);
+}
+
+// GitHub release redirect
+function openGitHubReleases() {
+    window.open('https://github.com/phantumblade/bacheca-annunci-java/releases/latest', '_blank');
+}
+
 // Export functions for testing (if needed)
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = {
@@ -406,6 +525,8 @@ if (typeof module !== 'undefined' && module.exports) {
         openFileModal,
         closeModal,
         searchFiles,
+        downloadFile,
+        showNotification,
         fileDescriptions
     };
 }

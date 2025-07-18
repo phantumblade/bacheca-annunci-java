@@ -201,6 +201,10 @@
                             <i class="fas fa-file-csv"></i>
                             <span>annunci.csv</span>
                         </div>
+                        <div class="file-item file" data-type="file" data-path="data/utenti.csv">
+                            <i class="fas fa-file-csv"></i>
+                            <span>utenti.csv</span>
+                        </div>
                     </div>
                     
                     <div class="file-item folder" data-type="folder" data-path="docs">
@@ -246,9 +250,151 @@
                         </div>
                     </div>
                     
+                    <div class="file-item folder" data-type="folder" data-path="App">
+                        <i class="fas fa-folder"></i>
+                        <span>App/</span>
+                        <span class="expand-icon">▶</span>
+                    </div>
+                    <div class="file-children hidden" data-parent="App">
+                        <div class="file-item file" data-type="file" data-path="App/BachecaAnnunci-1.0.dmg">
+                            <i class="fab fa-apple"></i>
+                            <span>BachecaAnnunci-1.0.dmg</span>
+                        </div>
+                        <div class="file-item folder" data-type="folder" data-path="App/resources">
+                            <i class="fas fa-folder"></i>
+                            <span>resources/</span>
+                            <span class="expand-icon">▶</span>
+                        </div>
+                        <div class="file-children hidden" data-parent="App/resources">
+                            <div class="file-item file" data-type="file" data-path="App/resources/Minecraft Education Edition.icns">
+                                <i class="fas fa-image"></i>
+                                <span>Minecraft Education Edition.icns</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="file-item folder" data-type="folder" data-path="build">
+                        <i class="fas fa-folder"></i>
+                        <span>build/</span>
+                        <span class="expand-icon">▶</span>
+                    </div>
+                    <div class="file-children hidden" data-parent="build">
+                        <div class="file-item file" data-type="file" data-path="build/compiled-classes">
+                            <i class="fas fa-file-code"></i>
+                            <span>Compiled .class files</span>
+                        </div>
+                    </div>
+                    
+                    <div class="file-item file" data-type="file" data-path="BachecaAnnunci.jar">
+                        <i class="fab fa-java"></i>
+                        <span>BachecaAnnunci.jar</span>
+                    </div>
+                    
                     <div class="file-item file" data-type="file" data-path="README.md">
                         <i class="fab fa-markdown"></i>
                         <span>README.md</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="download-section">
+                <h2>Download e Installazione</h2>
+                <div class="download-options">
+                    <div class="download-card primary">
+                        <i class="fab fa-apple"></i>
+                        <h3>macOS App (Consigliato)</h3>
+                        <p>App nativa con Java runtime integrato</p>
+                        <div class="download-details">
+                            <span class="file-size">61 MB</span>
+                            <span class="compatibility">macOS 10.15+</span>
+                        </div>
+                        <button class="download-btn" onclick="downloadFile('BachecaAnnunci-1.0.dmg')">
+                            <i class="fas fa-download"></i>
+                            Download DMG
+                        </button>
+                    </div>
+                    
+                    <div class="download-card">
+                        <i class="fab fa-java"></i>
+                        <h3>JAR Eseguibile</h3>
+                        <p>Versione cross-platform</p>
+                        <div class="download-details">
+                            <span class="file-size">~2 MB</span>
+                            <span class="compatibility">Java 17+</span>
+                        </div>
+                        <button class="download-btn" onclick="downloadFile('BachecaAnnunci.jar')">
+                            <i class="fas fa-download"></i>
+                            Download JAR
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="installation-steps">
+                    <div class="step-group">
+                        <h3><i class="fab fa-apple"></i> Installazione macOS</h3>
+                        <ol>
+                            <li>Scarica <code>BachecaAnnunci-1.0.dmg</code></li>
+                            <li>Apri il file DMG</li>
+                            <li>Trascina l'app nella cartella Applications</li>
+                            <li>Esegui dal Launchpad</li>
+                        </ol>
+                    </div>
+                    
+                    <div class="step-group">
+                        <h3><i class="fab fa-java"></i> Esecuzione JAR</h3>
+                        <ol>
+                            <li>Installa Java 17+ se necessario</li>
+                            <li>Scarica <code>BachecaAnnunci.jar</code></li>
+                            <li>Esegui: <code>java -jar BachecaAnnunci.jar</code></li>
+                        </ol>
+                    </div>
+                </div>
+            </section>
+
+            <section class="features-section">
+                <h2>Funzionalità Principali</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <i class="fas fa-users"></i>
+                        <h3>Gestione Utenti</h3>
+                        <p>Registrazione, ricerca e gestione completa degli utenti con persistenza CSV</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-shopping-cart"></i>
+                        <h3>Annunci Acquisto/Vendita</h3>
+                        <p>Creazione e gestione annunci con correlazioni automatiche tramite parole chiave</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-search"></i>
+                        <h3>Ricerca Avanzata</h3>
+                        <p>Ricerca per parole chiave con suggerimenti intelligenti e matching automatico</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-mobile-alt"></i>
+                        <h3>UI Responsiva</h3>
+                        <p>Layout che si adatta automaticamente alle dimensioni della finestra</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="version-info">
+                <h2>Versioni</h2>
+                <div class="version-timeline">
+                    <div class="version-item current">
+                        <div class="version-badge">v1.0.1</div>
+                        <div class="version-details">
+                            <h3>Current - CSV Loading Fix</h3>
+                            <p>Risolto caricamento dati CSV nell'app DMG, migliorato rilevamento ambiente</p>
+                            <span class="version-date">Gennaio 2025</span>
+                        </div>
+                    </div>
+                    <div class="version-item">
+                        <div class="version-badge">v1.0.0</div>
+                        <div class="version-details">
+                            <h3>Initial Release</h3>
+                            <p>Prima versione completa con GUI, CLI e persistenza CSV</p>
+                            <span class="version-date">Gennaio 2025</span>
+                        </div>
                     </div>
                 </div>
             </section>
