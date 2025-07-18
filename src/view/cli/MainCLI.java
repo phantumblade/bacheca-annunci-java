@@ -35,8 +35,14 @@ public class MainCLI {
 
     // Metodo principale che avvia l'interfaccia CLI
     public void avvia() {
-        // Carica automaticamente gli annunci dal file all'avvio
-        caricaAnnunciAuto();
+        // Mostra banner di benvenuto
+        stampaBanner();
+        
+        // Carica automaticamente i dati dal file all'avvio
+        caricaDatiIniziali();
+        
+        // Mostra statistiche iniziali
+        mostraStatisticheIniziali();
 
         boolean esegui = true;
         while (esegui) {
@@ -54,6 +60,9 @@ public class MainCLI {
                 case 7 -> stampaTuttiAnnunci();      // Stampa tutti gli annunci
                 case 8 -> aggiungiNuovoUtente();     // Registra un nuovo utente
                 case 9 -> aggiungiParoleChiave();    // Aggiunge parole chiave a un annuncio esistente
+                case 10 -> rimuoviUtente();          // Rimuove un utente dal sistema
+                case 11 -> cercaUtente();            // Cerca un utente per email
+                case 12 -> visualizzaUtenti();       // Visualizza tutti gli utenti registrati
                 case 0 -> {
                     System.out.println("Uscita dal sistema.");
                     esegui = false; // Termina l'esecuzione
@@ -76,25 +85,90 @@ public class MainCLI {
                 7. Stampa Tutti gli Annunci
                 8. Aggiungi Nuovo Utente
                 9. Aggiungi Parole Chiave a un Annuncio Esistente
+                10. Rimuovi Utente
+                11. Cerca Utente
+                12. Visualizza Tutti gli Utenti
                 0. Esci
                 """);
     }
 
+    // Stampa il banner di benvenuto
+    private void stampaBanner() {
+        System.out.println("============================================================");
+        System.out.println("                 BACHECA ANNUNCI CLI");
+        System.out.println("============================================================");
+        System.out.println();
+    }
+    
+    // Carica automaticamente utenti e annunci dai file all'avvio
+    private void caricaDatiIniziali() {
+        System.out.println("Caricamento dati iniziali...");
+        
+        // Carica utenti
+        caricaUtentiAuto();
+        
+        // Carica annunci
+        caricaAnnunciAuto();
+        
+        System.out.println();
+    }
+    
+    // Carica automaticamente gli utenti dal file all'avvio
+    private void caricaUtentiAuto() {
+        String filePath = "data/utenti.csv";
+        try {
+            gestoreUtenti.leggiDaFile(filePath);
+            System.out.println("Utenti caricati da: " + filePath);
+        } catch (IOException e) {
+            System.out.println("File utenti non trovato: " + filePath + " (primo avvio)");
+        } catch (Exception e) {
+            System.out.println("Errore nel caricamento utenti: " + e.getMessage());
+        }
+    }
+
     // Carica automaticamente gli annunci dal file all'avvio
     private void caricaAnnunciAuto() {
-        String filePath = "file/annunci.csv"; // Percorso del file da caricare automaticamente
+        String filePath = "data/annunci.csv";
         try {
-            Bacheca bachecaLetta = gestoreBacheca.leggiDaFile(filePath);
-            System.out.println("Annunci caricati automaticamente da: " + filePath);
-            System.out.println("Annunci presenti:");
-            for (Annuncio a : bachecaLetta.getAnnunci()) {
-                System.out.println(a);
-            }
+            gestoreBacheca.leggiDaFile(filePath);
+            System.out.println("Annunci caricati da: " + filePath);
         } catch (IOException e) {
-            System.out.println("Errore di I/O durante il caricamento automatico degli annunci: " + e.getMessage());
+            System.out.println("File annunci non trovato: " + filePath + " (primo avvio)");
         } catch (Exception e) {
-            System.out.println("Errore logico durante il caricamento automatico degli annunci: " + e.getMessage());
+            System.out.println("Errore nel caricamento annunci: " + e.getMessage());
         }
+    }
+    
+    // Mostra le statistiche iniziali del sistema
+    private void mostraStatisticheIniziali() {
+        System.out.println("STATISTICHE SISTEMA:");
+        System.out.println("------------------------------");
+        
+        // Conta utenti
+        int numUtenti = gestoreUtenti.getUtentiRegistrati().size();
+        System.out.println("Utenti registrati: " + numUtenti);
+        
+        // Conta annunci
+        Annuncio[] annunci = gestoreBacheca.getBacheca().getAnnunci();
+        int numAnnunci = annunci.length;
+        System.out.println("Annunci totali: " + numAnnunci);
+        
+        // Conta per tipo di annuncio
+        int annunciVendita = 0;
+        int annunciAcquisto = 0;
+        for (Annuncio a : annunci) {
+            if (a instanceof bacheca.AnnuncioVendita) {
+                annunciVendita++;
+            } else if (a instanceof bacheca.AnnuncioAcquisto) {
+                annunciAcquisto++;
+            }
+        }
+        
+        System.out.println("- Annunci vendita: " + annunciVendita);
+        System.out.println("- Annunci acquisto: " + annunciAcquisto);
+        
+        System.out.println("------------------------------");
+        System.out.println();
     }
 
     // Legge un intero da input con gestione degli errori
@@ -160,24 +234,48 @@ public class MainCLI {
 
     // Cerca annunci usando parole chiave inserite dall'utente
     private void cercaAnnuncio() {
+        System.out.println("=== RICERCA ANNUNCI ===");
         String inputParole = Input.readString("Inserisci parole chiave (separate da virgola): ");
         List<String> paroleChiave = List.of(inputParole.split(","));
 
         List<Annuncio> risultati = gestoreBacheca.cercaPerParoleChiave(new ArrayList<>(paroleChiave));
         if (risultati.isEmpty()) {
-            System.out.println("Nessun annuncio trovato con le parole chiave inserite.");
+            System.out.println("Nessun annuncio trovato con le parole chiave: " + String.join(", ", paroleChiave));
         } else {
-            System.out.println("=== Annunci trovati ===");
+            System.out.println("Trovati " + risultati.size() + " annunci con le parole chiave: " + String.join(", ", paroleChiave));
+            System.out.println("------------------------------------------------------------");
+            
             for (Annuncio annuncio : risultati) {
-                System.out.println(annuncio);
+                if (annuncio instanceof bacheca.AnnuncioVendita) {
+                    bacheca.AnnuncioVendita av = (bacheca.AnnuncioVendita) annuncio;
+                    System.out.println("VENDITA - ID: " + av.getId() + " | " + av.getTitolo() + " | EUR " + av.getPrezzo());
+                    System.out.println("   Venditore: " + av.getUtente().getNome() + " (" + av.getUtente().getEmail() + ")");
+                    System.out.println("   Descrizione: " + av.getDescrizione());
+                    System.out.println("   Venduto: " + (av.isVenduto() ? "Si" : "No") + " | Scadenza: " + av.getDataScadenza());
+                } else if (annuncio instanceof bacheca.AnnuncioAcquisto) {
+                    bacheca.AnnuncioAcquisto aa = (bacheca.AnnuncioAcquisto) annuncio;
+                    System.out.println("ACQUISTO - ID: " + aa.getId() + " | " + aa.getTitolo() + " | Budget: EUR " + aa.getPrezzo());
+                    System.out.println("   Acquirente: " + aa.getUtente().getNome() + " (" + aa.getUtente().getEmail() + ")");
+                    System.out.println("   Descrizione: " + aa.getDescrizione());
+                }
+                System.out.println("   Parole chiave: " + String.join(", ", annuncio.getParoleChiave()));
+                System.out.println();
             }
         }
     }
 
     // Rimuove tutti gli annunci dalla bacheca
     private void pulisciBacheca() {
+        System.out.println("=== PULIZIA BACHECA ===");
+        int annunciPrima = gestoreBacheca.getBacheca().getAnnunci().length;
+        
+        if (annunciPrima == 0) {
+            System.out.println("La bacheca e' gia' vuota.");
+            return;
+        }
+        
         gestoreBacheca.pulisciBacheca();
-        System.out.println("Bacheca pulita (annunci rimossi).");
+        System.out.println("Bacheca pulita! Rimossi " + annunciPrima + " annunci.");
     }
 
     // Rimuove un annuncio specifico usando ID e email del proprietario
@@ -229,7 +327,53 @@ public class MainCLI {
 
     // Stampa tutti gli annunci presenti nella bacheca
     private void stampaTuttiAnnunci() {
-        gestoreBacheca.stampaTuttiAnnunci();
+        System.out.println("=== TUTTI GLI ANNUNCI ===");
+        System.out.println();
+        
+        Annuncio[] annunci = gestoreBacheca.getBacheca().getAnnunci();
+        if (annunci.length == 0) {
+            System.out.println("Nessun annuncio presente nella bacheca.");
+            return;
+        }
+        
+        // Separa annunci di vendita e acquisto
+        List<bacheca.AnnuncioVendita> annunciVendita = new ArrayList<>();
+        List<bacheca.AnnuncioAcquisto> annunciAcquisto = new ArrayList<>();
+        
+        for (Annuncio a : annunci) {
+            if (a instanceof bacheca.AnnuncioVendita) {
+                annunciVendita.add((bacheca.AnnuncioVendita) a);
+            } else if (a instanceof bacheca.AnnuncioAcquisto) {
+                annunciAcquisto.add((bacheca.AnnuncioAcquisto) a);
+            }
+        }
+        
+        // Stampa annunci di vendita
+        if (!annunciVendita.isEmpty()) {
+            System.out.println("ANNUNCI DI VENDITA (" + annunciVendita.size() + "):");
+            System.out.println("--------------------------------------------------");
+            for (bacheca.AnnuncioVendita av : annunciVendita) {
+                System.out.println("ID: " + av.getId() + " | " + av.getTitolo() + " | EUR " + av.getPrezzo());
+                System.out.println("   Venditore: " + av.getUtente().getNome() + " (" + av.getUtente().getEmail() + ")");
+                System.out.println("   Descrizione: " + av.getDescrizione());
+                System.out.println("   Venduto: " + (av.isVenduto() ? "Si" : "No") + " | Scadenza: " + av.getDataScadenza());
+                System.out.println("   Parole chiave: " + String.join(", ", av.getParoleChiave()));
+                System.out.println();
+            }
+        }
+        
+        // Stampa annunci di acquisto
+        if (!annunciAcquisto.isEmpty()) {
+            System.out.println("ANNUNCI DI ACQUISTO (" + annunciAcquisto.size() + "):");
+            System.out.println("--------------------------------------------------");
+            for (bacheca.AnnuncioAcquisto aa : annunciAcquisto) {
+                System.out.println("ID: " + aa.getId() + " | " + aa.getTitolo() + " | Budget: EUR " + aa.getPrezzo());
+                System.out.println("   Acquirente: " + aa.getUtente().getNome() + " (" + aa.getUtente().getEmail() + ")");
+                System.out.println("   Descrizione: " + aa.getDescrizione());
+                System.out.println("   Parole chiave: " + String.join(", ", aa.getParoleChiave()));
+                System.out.println();
+            }
+        }
     }
 
     // Metodo per aggiungere un nuovo utente al sistema
@@ -275,6 +419,76 @@ public class MainCLI {
         } catch (GestoreBachecaException e) {
             // Gestione dell'errore se l'aggiunta fallisce
             System.out.println("Errore durante l'aggiunta delle parole chiave: " + e.getMessage());
+        }
+    }
+
+    // Metodo per rimuovere un utente dal sistema
+    private void rimuoviUtente() {
+        System.out.println("=== Rimozione Utente ===");
+
+        String email = Input.readString("Inserisci l'email dell'utente da rimuovere: ").trim();
+
+        try {
+            boolean rimosso = gestoreUtenti.rimuoviUtente(email);
+            if (rimosso) {
+                System.out.println("Utente rimosso con successo!");
+            } else {
+                System.out.println("Utente non trovato con questa email.");
+            }
+        } catch (Exception e) {
+            System.out.println("Errore durante la rimozione dell'utente: " + e.getMessage());
+        }
+    }
+
+    // Metodo per cercare un utente per email
+    private void cercaUtente() {
+        System.out.println("=== Ricerca Utente ===");
+
+        String email = Input.readString("Inserisci l'email dell'utente da cercare: ").trim();
+
+        try {
+            Utente utente = gestoreUtenti.cercaUtente(email);
+            if (utente != null) {
+                System.out.println("Utente trovato:");
+                System.out.println("Email: " + utente.getEmail());
+                System.out.println("Nome: " + utente.getNome());
+            } else {
+                System.out.println("Utente non trovato con questa email.");
+            }
+        } catch (Exception e) {
+            System.out.println("Errore durante la ricerca dell'utente: " + e.getMessage());
+        }
+    }
+
+    // Metodo per visualizzare tutti gli utenti registrati
+    private void visualizzaUtenti() {
+        System.out.println("=== TUTTI GLI UTENTI REGISTRATI ===");
+
+        try {
+            List<Utente> utenti = gestoreUtenti.getUtentiRegistrati();
+            if (utenti.isEmpty()) {
+                System.out.println("Nessun utente registrato nel sistema.");
+            } else {
+                System.out.println("Utenti registrati (" + utenti.size() + "):");
+                System.out.println("--------------------------------------------------");
+                
+                for (Utente utente : utenti) {
+                    // Conta gli annunci dell'utente
+                    int annunciUtente = 0;
+                    for (Annuncio a : gestoreBacheca.getBacheca().getAnnunci()) {
+                        if (a.getUtente().equals(utente)) {
+                            annunciUtente++;
+                        }
+                    }
+                    
+                    System.out.println("Nome: " + utente.getNome());
+                    System.out.println("   Email: " + utente.getEmail());
+                    System.out.println("   Annunci pubblicati: " + annunciUtente);
+                    System.out.println();
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Errore durante la visualizzazione degli utenti: " + e.getMessage());
         }
     }
 }

@@ -872,8 +872,8 @@ public class MainGUI extends JFrame {
                 Utente utente = gestoreUtenti.cercaUtente(email);
 
                 if (utente == null) {
-                    utente = new Utente(email, email);
-                    gestoreUtenti.aggiungiUtente(utente);
+                    JOptionPane.showMessageDialog(dialog, "Utente non trovato. Registrati prima nella sezione utenti.", "Errore", JOptionPane.ERROR_MESSAGE);
+                    return;
                 }
 
                 Annuncio nuovoAnnuncio;
@@ -1178,9 +1178,8 @@ public class MainGUI extends JFrame {
             }
         }
         
-        // Fallback: crea dati di esempio
-        System.out.println("Creazione dati di esempio...");
-        creaDatiDiEsempio();
+        // Fallback: nessun dato da caricare
+        System.out.println("Nessun dato da caricare - applicazione avviata con dati vuoti");
         
         System.out.println("=== DEBUG: Fine caricamento dati ===");
     }
@@ -1214,30 +1213,8 @@ public class MainGUI extends JFrame {
         }
     }
 
-    private void creaDatiDiEsempio() {
-        try {
-            // Crea alcuni utenti di esempio
-            Utente utente1 = new Utente("mario.rossi@email.com", "Mario Rossi");
-            Utente utente2 = new Utente("giulia.verdi@email.com", "Giulia Verdi");
-            gestoreUtenti.aggiungiUtente(utente1);
-            gestoreUtenti.aggiungiUtente(utente2);
-            
-            // Crea alcuni annunci di esempio
-            gestoreBacheca.aggiungiAnnuncio(new AnnuncioVendita(
-                "iPhone 12 Pro", "iPhone in ottime condizioni", 800.0, utente1,
-                List.of("iphone", "smartphone", "telefono"), false, LocalDate.now().plusDays(30)
-            ));
-            
-            gestoreBacheca.aggiungiAnnuncio(new AnnuncioAcquisto(
-                "MacBook Air", "Cerco MacBook Air usato", 1000.0, utente2,
-                List.of("macbook", "computer", "laptop")
-            ));
-            
-            System.out.println("Caricati dati di esempio");
-        } catch (Exception e) {
-            System.err.println("Errore nella creazione dati di esempio: " + e.getMessage());
-        }
-    }
+    // Metodo rimosso - non creiamo più dati di esempio statici
+    // L'applicazione ora carica solo dati dai file CSV
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {

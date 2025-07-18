@@ -149,7 +149,6 @@ public class Bacheca implements Iterable<Annuncio> {
     public void svuotaBacheca() {
         annunci.clear();  // Rimuove tutti gli annunci dalla lista
         Annuncio.resetIdCounter(1);  // Resetta il contatore ID a 1 (opzionale)
-        System.out.println("Bacheca svuotata e contatore ID resettato.");  // Debug
     }
 
     // ------------------------------------------------------------------

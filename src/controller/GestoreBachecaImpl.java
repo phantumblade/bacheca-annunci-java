@@ -274,7 +274,6 @@ public class GestoreBachecaImpl implements GestoreBacheca {
 
             // Reset del contatore ID solo dopo il caricamento di tutti gli annunci
             Annuncio.resetIdCounter(maxId + 1);
-            System.out.println("Contatore ID resettato a: " + (maxId + 1));  // Debug
 
             if (errori > 0) {
                 System.out.println("Sono stati saltati " + errori + " annunci per errori nei dati.");
