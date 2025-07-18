@@ -18,8 +18,10 @@ import javax.swing.table.JTableHeader;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
@@ -47,8 +49,7 @@ public class MainGUI extends JFrame {
         setLocationRelativeTo(null);
 
         initComponents();
-        caricaAnnunciDaFile("data/annunci.csv");
-        caricaUtentiDaFile("data/utenti.csv");
+        caricaDatiIniziali();
     }
 
     private void initComponents() {
@@ -1140,6 +1141,102 @@ public class MainGUI extends JFrame {
 
         dialog.add(formPanel);
         dialog.setVisible(true);
+    }
+
+    private void caricaDatiIniziali() {
+        System.out.println("=== DEBUG: Avvio caricamento dati ===");
+        
+        // Controlla se siamo in un JAR eseguibile
+        boolean inJar = getClass().getResource("MainGUI.class").toString().startsWith("jar:");
+        System.out.println("Eseguito da JAR: " + inJar);
+        
+        if (inJar) {
+            // Se siamo in un JAR, carica sempre dalle risorse interne
+            try {
+                System.out.println("Caricamento dalle risorse JAR...");
+                caricaDatiDalleRisorse();
+                return;
+            } catch (Exception ex) {
+                System.err.println("Errore caricamento risorse JAR: " + ex.getMessage());
+                ex.printStackTrace();
+            }
+        } else {
+            // In ambiente di sviluppo, prova prima i file esterni
+            boolean filesEsterni = new File("data/utenti.csv").exists() && new File("data/annunci.csv").exists();
+            System.out.println("File esterni esistono: " + filesEsterni);
+            
+            if (filesEsterni) {
+                try {
+                    System.out.println("Caricamento da file esterni...");
+                    gestoreUtenti.leggiDaFile("data/utenti.csv");
+                    gestoreBacheca.leggiDaFile("data/annunci.csv");
+                    System.out.println("Caricamento da file esterni completato");
+                    return;
+                } catch (Exception e) {
+                    System.err.println("Errore caricamento file esterni: " + e.getMessage());
+                }
+            }
+        }
+        
+        // Fallback: crea dati di esempio
+        System.out.println("Creazione dati di esempio...");
+        creaDatiDiEsempio();
+        
+        System.out.println("=== DEBUG: Fine caricamento dati ===");
+    }
+
+    private void caricaDatiDalleRisorse() throws Exception {
+        // Carica i file dalle risorse interne del JAR
+        System.out.println("Tentativo di caricamento dalle risorse JAR...");
+        
+        // Carica utenti
+        try (var inputStream = getClass().getClassLoader().getResourceAsStream("utenti.csv")) {
+            if (inputStream != null) {
+                try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
+                    gestoreUtenti.leggiDaReader(reader);
+                    System.out.println("Utenti caricati dalle risorse JAR");
+                }
+            } else {
+                System.err.println("File utenti.csv non trovato nelle risorse JAR");
+            }
+        }
+        
+        // Carica annunci
+        try (var inputStream = getClass().getClassLoader().getResourceAsStream("annunci.csv")) {
+            if (inputStream != null) {
+                try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
+                    gestoreBacheca.leggiDaReader(reader);
+                    System.out.println("Annunci caricati dalle risorse JAR");
+                }
+            } else {
+                System.err.println("File annunci.csv non trovato nelle risorse JAR");
+            }
+        }
+    }
+
+    private void creaDatiDiEsempio() {
+        try {
+            // Crea alcuni utenti di esempio
+            Utente utente1 = new Utente("mario.rossi@email.com", "Mario Rossi");
+            Utente utente2 = new Utente("giulia.verdi@email.com", "Giulia Verdi");
+            gestoreUtenti.aggiungiUtente(utente1);
+            gestoreUtenti.aggiungiUtente(utente2);
+            
+            // Crea alcuni annunci di esempio
+            gestoreBacheca.aggiungiAnnuncio(new AnnuncioVendita(
+                "iPhone 12 Pro", "iPhone in ottime condizioni", 800.0, utente1,
+                List.of("iphone", "smartphone", "telefono"), false, LocalDate.now().plusDays(30)
+            ));
+            
+            gestoreBacheca.aggiungiAnnuncio(new AnnuncioAcquisto(
+                "MacBook Air", "Cerco MacBook Air usato", 1000.0, utente2,
+                List.of("macbook", "computer", "laptop")
+            ));
+            
+            System.out.println("Caricati dati di esempio");
+        } catch (Exception e) {
+            System.err.println("Errore nella creazione dati di esempio: " + e.getMessage());
+        }
     }
 
     public static void main(String[] args) {

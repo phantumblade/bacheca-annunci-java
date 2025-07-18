@@ -55,4 +55,12 @@ public abstract interface GestoreUtenti {
      * @throws IOException se ci sono problemi di I/O
      */
     void leggiDaFile(String filePath) throws IOException;
+
+    /**
+     * Carica gli utenti da un BufferedReader (per risorse interne).
+     *
+     * @param reader il reader da cui leggere i dati
+     * @throws IOException se ci sono problemi di I/O
+     */
+    void leggiDaReader(java.io.BufferedReader reader) throws IOException;
 }

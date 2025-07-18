@@ -234,12 +234,19 @@ public class GestoreBachecaImpl implements GestoreBacheca {
             throw new IllegalArgumentException("Il percorso del file non può essere nullo o vuoto.");
         }
 
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            return leggiDaReader(reader);
+        }
+    }
+
+    @Override
+    public Bacheca leggiDaReader(BufferedReader reader) throws IOException, GestoreBachecaException {
         bacheca.svuotaBacheca();  // Svuota la bacheca prima di caricare i nuovi annunci
 
         int maxId = 0;  // Per tenere traccia dell'ID più alto nel file
         int errori = 0;
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+        try {
             String header = reader.readLine();
             if (header == null || header.isBlank()) {
                 throw new GestoreBachecaException("File vuoto o intestazione mancante.");
@@ -268,7 +275,6 @@ public class GestoreBachecaImpl implements GestoreBacheca {
             // Reset del contatore ID solo dopo il caricamento di tutti gli annunci
             Annuncio.resetIdCounter(maxId + 1);
             System.out.println("Contatore ID resettato a: " + (maxId + 1));  // Debug
-
 
             if (errori > 0) {
                 System.out.println("Sono stati saltati " + errori + " annunci per errori nei dati.");

@@ -55,6 +55,15 @@ public abstract interface GestoreBacheca {
     Bacheca leggiDaFile(String filePath) throws IOException, GestoreBachecaException;
 
     /**
+     * Legge e ricostruisce la Bacheca da un BufferedReader (per risorse interne).
+     * @param reader il reader da cui leggere i dati
+     * @return l'oggetto Bacheca ricostruito
+     * @throws IOException se si verifica un errore di lettura
+     * @throws GestoreBachecaException se il file contiene dati invalidi
+     */
+    Bacheca leggiDaReader(java.io.BufferedReader reader) throws IOException, GestoreBachecaException;
+
+    /**
      * Cerca tutti gli annunci contenenti almeno
      * una delle parole chiave specificate.
      * @return lista di annunci che corrispondono ai criteri

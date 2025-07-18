@@ -9,7 +9,7 @@
 
 **Sistema completo per la gestione di annunci di compravendita sviluppato in Java con interfacce CLI e GUI**
 
-[🚀 Quick Start](#-quick-start) • [📖 Documentazione](#-documentazione) • [💻 Screenshots](#-screenshots) • [🤝 Contribuire](#-contribuire)
+[🚀 Quick Start](#-quick-start) • [📱 App macOS (DMG)](#-installazione-app-macos-dmg) • [📖 Documentazione](#-documentazione) • [💻 Screenshots](#-screenshots) • [🤝 Contribuire](#-contribuire)
 
 </div>
 
@@ -30,6 +30,7 @@ Il **Sistema di Gestione Bacheca Annunci** è un'applicazione Java completa che 
 | 💾 **Persistenza CSV** | Salvataggio e caricamento dati | ✅ Completato |
 | 🔍 **Ricerca Avanzata** | Ricerca per parole chiave con correlazione | ✅ Completato |
 | 🛡️ **Validazione Dati** | Sistema robusto con eccezioni personalizzate | ✅ Completato |
+| 📱 **App macOS (DMG)** | Installazione nativa con icona personalizzata | ✅ Completato |
 
 ---
 
@@ -123,21 +124,66 @@ java --version  # Richiede Java 17+
 
 2. **Compila il progetto**
    ```bash
-   # Compila tutti i file
-   javac -cp ".:lib/*:jbook" src/**/*.java
+   # Compila tutti i file nella cartella bin
+   javac -cp ".:lib/*:jbook" -d bin src/**/*.java
    ```
 
 3. **Esegui l'applicazione**
    
    **🖥️ Interfaccia Grafica (GUI)**
    ```bash
-   java -cp ".:lib/*:jbook:src" view.frontend.MainGUI
+   java -cp ".:lib/*:jbook:bin" view.frontend.MainGUI
    ```
    
    **⌨️ Interfaccia Testuale (CLI)**
    ```bash
-   java -cp ".:lib/*:jbook:src" view.cli.StartApp
+   java -cp ".:lib/*:jbook:bin" view.cli.StartApp
    ```
+
+### 📱 Installazione App macOS (DMG)
+
+**Per utenti macOS**, puoi installare l'applicazione come app nativa:
+
+1. **Scarica il DMG**
+   ```bash
+   # Il file DMG è disponibile in App/BachecaAnnunci-v1.0.dmg
+   ```
+
+2. **Installa l'app**
+   - Apri il file `BachecaAnnunci-v1.0.dmg`
+   - Trascina `BachecaAnnunci.app` nella cartella `Applications`
+   - Esegui l'app dal Launchpad o dalla cartella Applications
+
+3. **Crea il DMG da linea di comando**
+   ```bash
+   # Vai nella cartella App
+   cd App/
+   
+   # Esegui lo script di build
+   ./build-dmg.sh
+   ```
+
+#### 🔧 Cosa fa lo script build-dmg.sh:
+
+- **Compila il progetto** con le ultime modifiche
+- **Crea un JAR eseguibile** con tutte le dipendenze
+- **Converte l'icona PNG** in formato ICNS per macOS
+- **Genera un App Bundle** (.app) con struttura corretta
+- **Crea un DMG** con icona personalizzata e installer
+- **Include un README** con istruzioni di installazione
+
+#### 📋 Requisiti per la creazione DMG:
+
+- **macOS** (per gli strumenti `iconutil`, `hdiutil`, `sips`)
+- **Java 17+** installato
+- **Xcode Command Line Tools** per i tool di sviluppo
+
+#### 🎯 Risultato:
+
+- **File**: `BachecaAnnunci-v1.0.dmg` (~520KB)
+- **Contenuto**: App nativa macOS con icona personalizzata
+- **Installazione**: Drag & drop nelle Applications
+- **Esecuzione**: Doppio click sull'app installata
 
 ---
 

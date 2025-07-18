@@ -155,24 +155,39 @@ public class GestoreUtentiImpl implements GestoreUtenti {
     @Override
     public void leggiDaFile(String filePath) throws IOException {
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
-            String line = reader.readLine(); // Skip header
-            
-            // Pulisce la lista corrente
-            UTENTI_REGISTRATI.clear();
-            
-            // Legge ogni riga
-            while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(",");
-                if (parts.length == 2) {
-                    String email = parts[0].trim();
-                    String nome = parts[1].trim();
-                    
-                    try {
-                        UTENTI_REGISTRATI.add(new Utente(email, nome));
-                    } catch (IllegalArgumentException e) {
-                        // Ignora utenti con dati non validi
-                        System.err.println("Utente non valido ignorato: " + line);
-                    }
+            leggiDaReader(reader);
+        }
+    }
+
+    // ------------------------------------------------------------------
+    // METODO: leggiDaReader
+    // ------------------------------------------------------------------
+    /**
+     * Carica gli utenti da un BufferedReader (per risorse interne).
+     * Formato: email,nome
+     *
+     * @param reader il reader da cui leggere i dati
+     * @throws IOException se ci sono problemi di I/O
+     */
+    @Override
+    public void leggiDaReader(BufferedReader reader) throws IOException {
+        String line = reader.readLine(); // Skip header
+        
+        // Pulisce la lista corrente
+        UTENTI_REGISTRATI.clear();
+        
+        // Legge ogni riga
+        while ((line = reader.readLine()) != null) {
+            String[] parts = line.split(",");
+            if (parts.length == 2) {
+                String email = parts[0].trim();
+                String nome = parts[1].trim();
+                
+                try {
+                    UTENTI_REGISTRATI.add(new Utente(email, nome));
+                } catch (IllegalArgumentException e) {
+                    // Ignora utenti con dati non validi
+                    System.err.println("Utente non valido ignorato: " + line);
                 }
             }
         }
