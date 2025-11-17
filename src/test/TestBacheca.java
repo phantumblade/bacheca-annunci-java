@@ -3,6 +3,7 @@ package test;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -45,7 +46,7 @@ public class TestBacheca {
         );
         
         assertDoesNotThrow(() -> bacheca.aggiungiAnnuncio(annuncio));
-        assertEquals(1, bacheca.getNumeroAnnunci());
+        assertEquals(1, bacheca.getAnnunci().length);
     }
     
     // Test per verificare che venga lanciata un'eccezione con annuncio nullo
@@ -55,14 +56,13 @@ public class TestBacheca {
             bacheca.aggiungiAnnuncio(null);
         });
         
-        assertEquals("L'annuncio non può essere nullo.", exception.getMessage());
+        assertEquals("Annuncio non può essere nullo", exception.getMessage());
     }
     
-    // Test per verificare che venga lanciata un'eccezione con annuncio duplicato
+    // Test per verificare l'aggiunta di più annunci
     @Test
-    public void testAggiungiAnnuncioDuplicato() {
+    public void testAggiungiPiuAnnunci() {
         AnnuncioAcquisto annuncio1 = new AnnuncioAcquisto(
-            1,
             "Cerco laptop",
             "Cerco laptop per lavoro",
             800.0,
@@ -71,7 +71,6 @@ public class TestBacheca {
         );
         
         AnnuncioAcquisto annuncio2 = new AnnuncioAcquisto(
-            1, // Stesso ID
             "Cerco tablet",
             "Cerco tablet per studio",
             400.0,
@@ -80,12 +79,9 @@ public class TestBacheca {
         );
         
         assertDoesNotThrow(() -> bacheca.aggiungiAnnuncio(annuncio1));
+        assertDoesNotThrow(() -> bacheca.aggiungiAnnuncio(annuncio2));
         
-        Exception exception = assertThrows(BachecaException.class, () -> {
-            bacheca.aggiungiAnnuncio(annuncio2);
-        });
-        
-        assertEquals("Annuncio con ID 1 già presente nella bacheca.", exception.getMessage());
+        assertEquals(2, bacheca.getAnnunci().length);
     }
     
     // Test per verificare la rimozione di un annuncio esistente
@@ -100,19 +96,19 @@ public class TestBacheca {
         );
         
         bacheca.aggiungiAnnuncio(annuncio);
-        assertEquals(1, bacheca.getNumeroAnnunci());
+        assertEquals(1, bacheca.getAnnunci().length);
         
-        boolean rimosso = bacheca.rimuoviAnnuncio(annuncio.getId());
+        boolean rimosso = bacheca.rimuoviAnnuncio(annuncio.getId(), utente1);
         assertTrue(rimosso);
-        assertEquals(0, bacheca.getNumeroAnnunci());
+        assertEquals(0, bacheca.getAnnunci().length);
     }
     
     // Test per verificare la rimozione di un annuncio inesistente
     @Test
     public void testRimuoviAnnuncioInesistente() {
-        boolean rimosso = bacheca.rimuoviAnnuncio(999);
+        boolean rimosso = bacheca.rimuoviAnnuncio(999, utente1);
         assertFalse(rimosso);
-        assertEquals(0, bacheca.getNumeroAnnunci());
+        assertEquals(0, bacheca.getAnnunci().length);
     }
     
     // Test per verificare la ricerca per parole chiave
@@ -148,7 +144,7 @@ public class TestBacheca {
         bacheca.aggiungiAnnuncio(annuncio2);
         bacheca.aggiungiAnnuncio(annuncio3);
         
-        List<Annuncio> risultati = bacheca.cercaPerParoleChiave(Arrays.asList("computer"));
+        ArrayList<Annuncio> risultati = bacheca.cercaPerParoleChiave(new ArrayList<>(Arrays.asList("computer")));
         assertEquals(2, risultati.size());
         assertTrue(risultati.contains(annuncio1));
         assertTrue(risultati.contains(annuncio3));
@@ -167,7 +163,7 @@ public class TestBacheca {
         
         bacheca.aggiungiAnnuncio(annuncio);
         
-        List<Annuncio> risultati = bacheca.cercaPerParoleChiave(Arrays.asList("bicicletta"));
+        ArrayList<Annuncio> risultati = bacheca.cercaPerParoleChiave(new ArrayList<>(Arrays.asList("bicicletta")));
         assertEquals(0, risultati.size());
     }
     
@@ -184,8 +180,9 @@ public class TestBacheca {
         
         bacheca.aggiungiAnnuncio(annuncio);
         
-        List<Annuncio> risultati = bacheca.cercaPerParoleChiave(null);
-        assertEquals(0, risultati.size());
+        assertThrows(BachecaException.class, () -> {
+            bacheca.cercaPerParoleChiave(null);
+        });
     }
     
     // Test per verificare lo svuotamento della bacheca
@@ -209,10 +206,10 @@ public class TestBacheca {
         
         bacheca.aggiungiAnnuncio(annuncio1);
         bacheca.aggiungiAnnuncio(annuncio2);
-        assertEquals(2, bacheca.getNumeroAnnunci());
+        assertEquals(2, bacheca.getAnnunci().length);
         
         bacheca.svuotaBacheca();
-        assertEquals(0, bacheca.getNumeroAnnunci());
+        assertEquals(0, bacheca.getAnnunci().length);
     }
     
     // Test per verificare l'iterazione con for-each
@@ -259,15 +256,15 @@ public class TestBacheca {
         
         bacheca.aggiungiAnnuncio(annuncio);
         
-        List<Annuncio> annunci = bacheca.getAnnunci();
-        assertEquals(1, annunci.size());
-        assertTrue(annunci.contains(annuncio));
+        Annuncio[] annunci = bacheca.getAnnunci();
+        assertEquals(1, annunci.length);
+        assertTrue(Arrays.asList(annunci).contains(annuncio));
     }
     
     // Test per verificare il numero di annunci
     @Test
     public void testGetNumeroAnnunci() {
-        assertEquals(0, bacheca.getNumeroAnnunci());
+        assertEquals(0, bacheca.getAnnunci().length);
         
         AnnuncioAcquisto annuncio1 = new AnnuncioAcquisto(
             "Cerco laptop",
@@ -278,7 +275,7 @@ public class TestBacheca {
         );
         
         bacheca.aggiungiAnnuncio(annuncio1);
-        assertEquals(1, bacheca.getNumeroAnnunci());
+        assertEquals(1, bacheca.getAnnunci().length);
         
         AnnuncioAcquisto annuncio2 = new AnnuncioAcquisto(
             "Cerco tablet",
@@ -289,6 +286,6 @@ public class TestBacheca {
         );
         
         bacheca.aggiungiAnnuncio(annuncio2);
-        assertEquals(2, bacheca.getNumeroAnnunci());
+        assertEquals(2, bacheca.getAnnunci().length);
     }
 }

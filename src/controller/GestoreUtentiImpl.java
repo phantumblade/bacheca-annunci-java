@@ -185,7 +185,7 @@ public class GestoreUtentiImpl implements GestoreUtenti {
                 
                 try {
                     UTENTI_REGISTRATI.add(new Utente(email, nome));
-                } catch (IllegalArgumentException e) {
+                } catch (Exception e) {
                     // Ignora utenti con dati non validi
                     System.err.println("Utente non valido ignorato: " + line);
                 }

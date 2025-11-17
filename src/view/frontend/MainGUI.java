@@ -25,7 +25,6 @@ import java.io.InputStreamReader;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
-import java.net.URL;
 
 public class MainGUI extends JFrame {
     private JPanel optionsPanelCompatto;
@@ -230,7 +229,7 @@ public class MainGUI extends JFrame {
         aggiungiTabelle(tabellaPanel);  // Aggiunge le tabelle al caricamento
 
         panel.add(tabellaPanel, BorderLayout.CENTER);
-        
+
         // Carica i bottoni iniziali (modalità annunci) DOPO aver creato tabellaPanel
         aggiornaVistaEstesa();
 
@@ -298,7 +297,7 @@ public class MainGUI extends JFrame {
 
     private void aggiornaVistaBottoni() {
         optionsPanelEsteso.removeAll(); // Svuota i bottoni
-        
+
         // Imposta il padding corretto per la modalità estesa
         optionsPanelEsteso.setBorder(BorderFactory.createEmptyBorder(10, 0, 20, 0));
 
@@ -323,7 +322,7 @@ public class MainGUI extends JFrame {
 
     private void aggiornaVistaCompatta() {
         optionsPanelCompatto.removeAll();
-        
+
         // Imposta il padding corretto per la modalità compatta
         optionsPanelCompatto.setBorder(BorderFactory.createEmptyBorder(30, 120, 20, 120));
 
@@ -348,7 +347,7 @@ public class MainGUI extends JFrame {
     private void aggiornaVistaEstesa() {
         // Aggiorna i bottoni per la vista estesa
         aggiornaVistaBottoni();
-        
+
         tabellaPanel.removeAll();
 
         if (modalitaUtenti) {
@@ -540,23 +539,6 @@ public class MainGUI extends JFrame {
         button.addActionListener(action);
         panel.add(Box.createVerticalStrut(10));
         panel.add(button);
-    }
-
-    private void caricaAnnunciDaFile(String filePath) {
-        try {
-            gestoreBacheca.leggiDaFile(filePath);
-        } catch (IOException | GestoreBachecaException e) {
-            JOptionPane.showMessageDialog(this, "Errore durante il caricamento del file: " + e.getMessage(), "Errore", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-
-    private void caricaUtentiDaFile(String filePath) {
-        try {
-            gestoreUtenti.leggiDaFile(filePath);
-        } catch (IOException e) {
-            // Non mostrare errore se il file non esiste (primo avvio)
-            System.out.println("File utenti non trovato (primo avvio): " + filePath);
-        }
     }
 
     private void salvaUtentiSuFile() {
@@ -1145,11 +1127,11 @@ public class MainGUI extends JFrame {
 
     private void caricaDatiIniziali() {
         System.out.println("=== DEBUG: Avvio caricamento dati ===");
-        
+
         // Controlla se siamo in un JAR eseguibile
         boolean inJar = getClass().getResource("MainGUI.class").toString().startsWith("jar:");
         System.out.println("Eseguito da JAR: " + inJar);
-        
+
         if (inJar) {
             // Se siamo in un JAR, carica sempre dalle risorse interne
             try {
@@ -1164,7 +1146,7 @@ public class MainGUI extends JFrame {
             // In ambiente di sviluppo, prova prima i file esterni
             boolean filesEsterni = new File("data/utenti.csv").exists() && new File("data/annunci.csv").exists();
             System.out.println("File esterni esistono: " + filesEsterni);
-            
+
             if (filesEsterni) {
                 try {
                     System.out.println("Caricamento da file esterni...");
@@ -1177,17 +1159,17 @@ public class MainGUI extends JFrame {
                 }
             }
         }
-        
+
         // Fallback: nessun dato da caricare
         System.out.println("Nessun dato da caricare - applicazione avviata con dati vuoti");
-        
+
         System.out.println("=== DEBUG: Fine caricamento dati ===");
     }
 
     private void caricaDatiDalleRisorse() throws Exception {
         // Carica i file dalle risorse interne del JAR
         System.out.println("Tentativo di caricamento dalle risorse JAR...");
-        
+
         // Carica utenti
         try (var inputStream = getClass().getClassLoader().getResourceAsStream("utenti.csv")) {
             if (inputStream != null) {
@@ -1199,7 +1181,7 @@ public class MainGUI extends JFrame {
                 System.err.println("File utenti.csv non trovato nelle risorse JAR");
             }
         }
-        
+
         // Carica annunci
         try (var inputStream = getClass().getClassLoader().getResourceAsStream("annunci.csv")) {
             if (inputStream != null) {

@@ -160,6 +160,26 @@ public abstract class Annuncio {
     }
 
     /**
+     * Implementazione del metodo equals() basata sull'ID dell'annuncio.
+     * Due annunci sono uguali se hanno lo stesso ID.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Annuncio annuncio = (Annuncio) obj;
+        return id == annuncio.id;
+    }
+
+    /**
+     * Implementazione del metodo hashCode() basata sull'ID dell'annuncio.
+     */
+    @Override
+    public int hashCode() {
+        return Integer.hashCode(id);
+    }
+
+    /**
      * Rappresentazione leggibile dell'annuncio per debug e visualizzazione.
      * Include ID, titolo, prezzo, utente e parole chiave.
      */

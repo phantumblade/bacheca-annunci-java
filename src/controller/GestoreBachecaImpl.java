@@ -129,16 +129,8 @@ public class GestoreBachecaImpl implements GestoreBacheca {
 
     @Override
     public void pulisciBacheca() {
-        // Rimuove in blocco tutti gli AnnuncioVendita scaduti
-        List<Annuncio> scaduti = new ArrayList<>();
-        for (Annuncio annuncio : bacheca.getAnnunci()) {
-            if (annuncio instanceof AnnuncioVendita vend) {
-                if (vend.getDataScadenza().isBefore(LocalDate.now())) {
-                    scaduti.add(annuncio);
-                }
-            }
-        }
-        bacheca.rimuoviAnnuncio(scaduti);
+        // Svuota completamente la bacheca
+        bacheca.svuotaBacheca();
     }
 
     @Override
@@ -377,8 +369,8 @@ public class GestoreBachecaImpl implements GestoreBacheca {
             throw new GestoreBachecaException("Annuncio con ID " + id + " non trovato.");
         }
 
-        // Aggiunge le nuove parole chiave
-        List<String> paroleEsistenti = annuncio.getParoleChiave();
+        // Crea una nuova lista con le parole esistenti
+        List<String> paroleEsistenti = new ArrayList<>(annuncio.getParoleChiave());
         paroleEsistenti.addAll(nuoveParole);
 
         // Rimuove eventuali duplicati

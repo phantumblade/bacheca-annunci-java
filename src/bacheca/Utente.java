@@ -1,5 +1,7 @@
 package bacheca;
 
+import eccezioni.DatiNonValidiException;
+
 // AGGIUNGERE CLASSE UTENTI CON ARRAYLIST<UTENTE>
 // (Potresti avere una struttura esterna che gestisce una lista di Utente,
 //  ad esempio "GestoreUtenti" o simile. Per ora, la classe Utente rimane autonoma.)
@@ -50,17 +52,17 @@ public class Utente {
      *
      * @param email L'email dell'utente (non può essere null né invalida)
      * @param nome  Il nome dell'utente (non può essere null né vuoto)
-     * @throws IllegalArgumentException se l'email è invalida o il nome è nullo/vuoto
+     * @throws DatiNonValidiException se l'email è invalida o il nome è nullo/vuoto
      */
     public Utente(String email, String nome) {
         // 1. Controllo se l'email rispetta la regex, altrimenti lancio eccezione.
         if (!checkEmail(email)) {
-            throw new IllegalArgumentException("L'email non è valida. Riprovare!");
+            throw new DatiNonValidiException("L'email non è valida. Riprovare!");
         }
 
         // 2. Controllo se il nome è nullo o vuoto.
         if (nome == null || nome.isBlank()) {
-            throw new IllegalArgumentException("Il nome deve contenere almeno un carattere.");
+            throw new DatiNonValidiException("Il nome deve contenere almeno un carattere.");
         }
 
         // 3. Assegno i valori (trim per rimuovere eventuali spazi prima/dopo il nome).
@@ -98,11 +100,11 @@ public class Utente {
      * Aggiorna il nome dell'utente.
      *
      * @param nome Nuovo nome, non nullo né vuoto.
-     * @throws IllegalArgumentException se il nome è nullo o vuoto
+     * @throws DatiNonValidiException se il nome è nullo o vuoto
      */
     public void setNome(String nome) {
         if (nome == null || nome.isBlank()) {
-            throw new IllegalArgumentException("Il nome deve contenere almeno un carattere.");
+            throw new DatiNonValidiException("Il nome deve contenere almeno un carattere.");
         }
         this.nome = nome;
     }
@@ -149,6 +151,14 @@ public class Utente {
         //    N.B.: se volessi ignorare maiuscole/minuscole, potresti usare:
         //    return email.equalsIgnoreCase(utente.email);
         return email.equals(utente.email);
+    }
+
+    /**
+     * Implementazione del metodo hashCode() basata sull'email.
+     */
+    @Override
+    public int hashCode() {
+        return email.hashCode();
     }
 
     /**

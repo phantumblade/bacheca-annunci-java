@@ -22,7 +22,7 @@
     --claude-success: #10B981;
     --claude-warning: #F59E0B;
     --claude-error: #EF4444;
-    
+
     /* Modern spacing */
     --spacing-xs: 4px;
     --spacing-sm: 8px;
@@ -31,7 +31,7 @@
     --spacing-xl: 32px;
     --spacing-xxl: 48px;
     --spacing-xxxl: 64px;
-    
+
     /* Typography moderna */
     --font-primary: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     --font-mono: "Fira Code", "SF Mono", Consolas, monospace;
@@ -42,18 +42,18 @@
     --font-size-xl: 20px;
     --font-size-xxl: 24px;
     --font-size-xxxl: 32px;
-    
+
     /* Shadows moderne */
     --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
     --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
     --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
     --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.15);
-    
+
     /* Borders e radius */
     --border-radius: 8px;
     --border-radius-lg: 12px;
     --border-radius-xl: 16px;
-    
+
     /* Transizioni */
     --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -345,13 +345,13 @@ body {
 
 .modal-content {
     background-color: var(--claude-surface);
-    margin: 5% auto;
+    margin: 3% auto;
     padding: 0;
     border: none;
     border-radius: 16px;
-    width: 90%;
-    max-width: 680px;
-    max-height: 80vh;
+    width: 92%;
+    max-width: 900px;
+    max-height: 90vh;
     overflow: hidden;
     position: relative;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.05);
@@ -412,7 +412,7 @@ body {
 }
 
 .modal-header h2 {
-    font-size: 22px;
+    font-size: 26px;
     font-weight: 600;
     margin: 0;
     color: var(--claude-text);
@@ -420,25 +420,25 @@ body {
 }
 
 .modal-body {
-    padding: 32px;
+    padding: 40px;
     word-wrap: break-word;
     overflow-wrap: break-word;
     overflow-y: auto;
-    max-height: calc(80vh - 120px);
+    max-height: calc(90vh - 140px);
     background: var(--claude-surface);
 }
 
 .modal-body h3 {
     color: var(--claude-text);
-    font-size: 16px;
+    font-size: 20px;
     font-weight: 600;
-    margin-bottom: 12px;
-    margin-top: 24px;
+    margin-bottom: 16px;
+    margin-top: 32px;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 12px;
     position: relative;
-    padding-left: 12px;
+    padding-left: 16px;
 }
 
 .modal-body h3:first-child {
@@ -458,9 +458,9 @@ body {
 
 .modal-body p {
     color: var(--claude-text-secondary);
-    line-height: 1.6;
-    margin-bottom: 16px;
-    font-size: 14px;
+    line-height: 1.7;
+    margin-bottom: 20px;
+    font-size: 16px;
 }
 
 .modal-body ul {
@@ -473,19 +473,19 @@ body {
 
 .modal-body li {
     background: rgba(0, 0, 0, 0.02);
-    padding: 12px 16px;
+    padding: 16px 20px;
     margin: 0;
     border: 1px solid rgba(0, 0, 0, 0.08);
     color: var(--claude-text-secondary);
     font-family: var(--font-mono);
-    font-size: 13px;
+    font-size: 15px;
     border-radius: 8px;
     transition: all var(--transition-fast);
     word-wrap: break-word;
     overflow-wrap: break-word;
     white-space: pre-wrap;
     position: relative;
-    padding-left: 16px;
+    padding-left: 20px;
 }
 
 .modal-body li.clickable-dependency {
@@ -512,76 +512,76 @@ body {
     .container {
         padding: 0 var(--spacing-sm);
     }
-    
+
     .header {
         padding: var(--spacing-sm) 0;
     }
-    
+
     .header-top {
         gap: var(--spacing-sm);
     }
-    
+
     .header-icon {
         width: 28px;
         height: 28px;
     }
-    
+
     .header h1 {
         font-size: var(--font-size-xl);
     }
-    
+
     .header p {
         font-size: var(--font-size-md);
     }
-    
+
     .project-overview {
         margin-bottom: var(--spacing-md);
         padding: var(--spacing-sm);
     }
-    
+
     .overview-grid {
         grid-template-columns: 1fr 1fr;
         gap: var(--spacing-xs);
     }
-    
+
     .overview-card {
         padding: var(--spacing-xs);
     }
-    
+
     .overview-card i {
         font-size: 16px;
     }
-    
+
     .overview-card h3 {
         font-size: 11px;
     }
-    
+
     .overview-card p {
         font-size: 10px;
     }
-    
+
     .file-explorer {
         padding: var(--spacing-md);
     }
-    
+
     .modal-content {
-        width: 92vw;
+        width: 95vw;
         height: auto;
-        max-height: 85vh;
-        margin: 7.5vh auto;
+        max-height: 88vh;
+        margin: 6vh auto;
         display: flex;
         flex-direction: column;
     }
-    
+
     .modal-header {
         padding: var(--spacing-md);
         flex-shrink: 0;
     }
-    
+
     .modal-header h2 {
         font-size: var(--font-size-lg);
     }
-    
+
     .modal-body {
         padding: var(--spacing-md);
         flex: 1;
@@ -589,14 +589,14 @@ body {
         -webkit-overflow-scrolling: touch;
         min-height: 0;
     }
-    
+
     .modal-body p {
-        font-size: var(--font-size-sm);
+        font-size: var(--font-size-md);
     }
-    
+
     .modal-body li {
-        font-size: var(--font-size-xs);
-        padding: var(--spacing-sm);
+        font-size: var(--font-size-sm);
+        padding: var(--spacing-md);
     }
 }
 
@@ -604,82 +604,82 @@ body {
     .header-top {
         gap: var(--spacing-xs);
     }
-    
+
     .header-icon {
         width: 24px;
         height: 24px;
     }
-    
+
     .header h1 {
         font-size: var(--font-size-lg);
         letter-spacing: 1px;
     }
-    
+
     .header p {
         font-size: var(--font-size-sm);
     }
-    
+
     .project-overview {
         margin-bottom: var(--spacing-sm);
     }
-    
+
     .overview-grid {
         grid-template-columns: 1fr 1fr;
         gap: var(--spacing-xs);
     }
-    
+
     .overview-card {
         padding: 6px;
     }
-    
+
     .overview-card i {
         font-size: 14px;
     }
-    
+
     .overview-card h3 {
         font-size: 10px;
     }
-    
+
     .overview-card p {
         font-size: 9px;
     }
-    
+
     .file-item {
         padding: var(--spacing-xs);
     }
-    
+
     .file-item img {
         width: 16px;
         height: 16px;
     }
-    
+
     .modal-content {
-        width: 94vw;
+        width: 96vw;
         height: auto;
-        max-height: 80vh;
-        margin: 10vh auto;
+        max-height: 85vh;
+        margin: 7vh auto;
     }
-    
+
     .modal-header {
         padding: var(--spacing-sm);
     }
-    
+
     .modal-header h2 {
         font-size: var(--font-size-md);
     }
-    
+
     .modal-body {
         padding: var(--spacing-sm);
         min-height: 0;
     }
-    
+
     .modal-body p {
-        font-size: var(--font-size-xs);
+        font-size: var(--font-size-sm);
     }
-    
+
     .modal-body li {
-        font-size: 11px;
-        padding: var(--spacing-xs);
+        font-size: var(--font-size-xs);
+        padding: var(--spacing-sm);
     }
 }
 
@@ -743,11 +743,11 @@ body {
         background: white;
         color: black;
     }
-    
+
     .modal {
         display: none;
     }
-    
+
     .header {
         background: white;
         color: black;
@@ -760,6 +760,7 @@ body {
     background: var(--claude-surface);
     padding: var(--spacing-xxl);
     border-radius: 16px;
+    margin-top: 1rem;
     margin-bottom: var(--spacing-xl);
     box-shadow: var(--shadow-md);
 }
@@ -1061,28 +1062,28 @@ body {
         padding: var(--spacing-lg);
         margin-bottom: var(--spacing-lg);
     }
-    
+
     .download-options {
         grid-template-columns: 1fr;
         gap: var(--spacing-md);
     }
-    
+
     .installation-steps {
         grid-template-columns: 1fr;
         gap: var(--spacing-md);
     }
-    
+
     .features-grid {
         grid-template-columns: 1fr;
         gap: var(--spacing-md);
     }
-    
+
     .version-item {
         flex-direction: column;
         text-align: center;
         gap: var(--spacing-md);
     }
-    
+
     .version-badge {
         align-self: center;
     }

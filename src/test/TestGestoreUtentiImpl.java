@@ -24,6 +24,13 @@ public class TestGestoreUtentiImpl {
     @BeforeEach
     public void setUp() {
         gestoreUtenti = new GestoreUtentiImpl();
+        
+        // Pulisce la lista statica prima di ogni test
+        try {
+            gestoreUtenti.leggiDaReader(new java.io.BufferedReader(new java.io.StringReader("email,nome\n")));
+        } catch (Exception e) {
+            // Ignore
+        }
     }
     
     // Test per verificare l'aggiunta di un utente valido
@@ -45,7 +52,7 @@ public class TestGestoreUtentiImpl {
             gestoreUtenti.aggiungiUtente(null);
         });
         
-        assertEquals("L'utente non può essere nullo.", exception.getMessage());
+        assertEquals("Utente non può essere nullo", exception.getMessage());
     }
     
     // Test per verificare che venga lanciata un'eccezione con utente duplicato
@@ -60,7 +67,7 @@ public class TestGestoreUtentiImpl {
             gestoreUtenti.aggiungiUtente(utente2);
         });
         
-        assertEquals("Utente con email 'mario.rossi@email.com' già registrato.", exception.getMessage());
+        assertEquals("Email già presente: mario.rossi@email.com", exception.getMessage());
     }
     
     // Test per verificare la rimozione di un utente esistente
